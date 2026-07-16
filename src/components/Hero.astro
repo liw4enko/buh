@@ -3,9 +3,10 @@ import Icon from './Icon.astro';
 import { hero, trustChips, brand } from '../data/site';
 const chipIcons = ['clock', 'shield', 'bars'];
 ---
+<div class="wrap">
 <section class="hero" aria-label="Главный экран">
   <div class="scrim"></div>
-  <div class="wrap content">
+  <div class="content">
     <div class="card glass">
       <h1>{hero.h1}</h1>
       <p class="sub">{hero.sub}</p>
@@ -28,12 +29,14 @@ const chipIcons = ['clock', 'shield', 'bars'];
     </div>
   </div>
 </section>
+</div>
 
 <style>
   .hero {
     position: relative;
     margin-top: calc(-1 * var(--hdr-h));
-    min-height: clamp(720px, 46vw, 820px);
+    min-height: clamp(680px, 42vw, 760px);
+    border-radius: 30px; overflow: hidden;
     background-image: url('/assets/hero.jpg');
     background-size: cover; background-position: 82% 36%; background-repeat: no-repeat;
   }
@@ -49,7 +52,7 @@ const chipIcons = ['clock', 'shield', 'bars'];
   .content {
     position: relative; min-height: inherit;
     display: flex; flex-direction: column; justify-content: center;
-    padding-top: calc(var(--hdr-h) + 20px); padding-bottom: 40px;
+    padding: calc(var(--hdr-h) + 28px) 44px 44px;
   }
 
   /* матовое стекло на БЕЛОМ */
