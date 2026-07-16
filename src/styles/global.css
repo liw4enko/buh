@@ -1,0 +1,87 @@
+/* ============================================================================
+   ДИЗАЙН-СИСТЕМА — токены из нового макета «Бухгалтер Плюс»
+   Палитра: зелёный акцент + тёмно-синий текст, шрифт Onest.
+   ============================================================================ */
+:root {
+  /* палитра */
+  --green: #5fb094;
+  --green-h: #54a487;
+  --green-d: #2f7a5e;
+  --green-100: #eef7f3;
+  --green-200: #cfe7da;
+  --green-300: #dcefea;
+
+  --ink: #2a3450;      /* основной текст / тёмный фон */
+  --ink-2: #39456a;
+  --muted: #5b6478;    /* приглушённый текст */
+  --muted-2: #8b93a3;
+
+  --line: #ebeef2;     /* границы */
+  --line-2: #e1e7ec;
+
+  --bg: #ffffff;
+  --bg-soft: #f6f8fa;  /* серые секции */
+  --bg-green: #f1f5f2; /* зеленоватые секции */
+  --hero-scrim: #f7fafb;
+
+  --danger-bg: #f6ecec;
+  --danger: #b87575;
+
+  --radius: 20px;
+  --radius-s: 12px;
+  --shadow-s: 0 4px 18px rgba(42, 52, 80, .06);
+  --shadow: 0 18px 44px rgba(42, 52, 80, .10);
+  --maxw: 1240px;
+  --pad: 40px;
+}
+
+* { box-sizing: border-box; }
+html { margin: 0; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: 'Onest', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+::placeholder { color: #9aa2b1; opacity: 1; }
+input, button, textarea { font-family: inherit; }
+
+h1, h2, h3 { margin: 0; letter-spacing: -.02em; }
+
+/* ——— layout primitives ——— */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+.sec { padding-top: 80px; padding-bottom: 80px; }
+.center { text-align: center; }
+.eyebrow {
+  font-size: 14px; font-weight: 600; color: var(--green);
+  letter-spacing: .05em; text-transform: uppercase; margin-bottom: 12px;
+}
+.h2 { font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.05; }
+.lead { font-size: 18px; color: var(--muted); margin: 12px auto 0; max-width: 640px; }
+
+/* ——— buttons ——— */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  background: var(--green); color: #fff; border: none;
+  padding: 15px 26px; font-size: 16px; font-weight: 600;
+  border-radius: var(--radius-s); cursor: pointer; transition: background .18s, transform .18s;
+}
+.btn:hover { background: var(--green-h); transform: translateY(-1px); }
+.btn-ghost {
+  background: #fff; color: var(--ink); border: 1px solid var(--line-2);
+}
+.btn-ghost:hover { background: #f4f7f9; }
+
+/* ——— cards ——— */
+.card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
+
+/* ——— responsive ——— */
+@media (max-width: 900px) {
+  :root { --pad: 24px; }
+  .sec { padding-top: 56px; padding-bottom: 56px; }
+}

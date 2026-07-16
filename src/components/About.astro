@@ -1,0 +1,61 @@
+---
+import Icon from './Icon.astro';
+import { brand } from '../data/site';
+---
+<section class="sec" id="obo-mne">
+  <div class="wrap grid">
+    <div class="photo">
+      <!-- __PLACEHOLDER__ — заменить на реальное фото (портрет / за работой). -->
+      <div class="ph" aria-label="Фото бухгалтера">
+        <svg viewBox="0 0 400 500" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="500" fill="#dfeef0"/>
+          <circle cx="200" cy="185" r="78" fill="#c6e0df"/>
+          <path d="M70 500c0-78 58-132 130-132s130 54 130 132z" fill="#c6e0df"/>
+          <text x="200" y="470" text-anchor="middle" fill="#6f9997" font-family="Onest, sans-serif" font-size="15" font-weight="600">фото · заглушка</text>
+        </svg>
+      </div>
+      <div class="badge b1"><span class="bi" style="background:var(--green)"><Icon name="clock" size={18} stroke="#fff"/></span><span><b>{brand.experienceYears} лет</b><small>практики</small></span></div>
+      <div class="badge b2"><span class="bi" style="background:var(--ink)"><Icon name="shield" size={18} stroke="#fff"/></span><span><b>По договору</b><small>с гарантией</small></span></div>
+    </div>
+
+    <div class="txt">
+      <div class="eyebrow">Обо мне</div>
+      <h2 class="h2" style="margin-bottom:16px">Частный бухгалтер, которому можно передать всё</h2>
+      <p>Меня зовут {brand.name}. {brand.experienceYears} лет в бухгалтерии и налогах. Веду ИП и ООО на аутсорсе полностью удалённо по {brand.region.toLowerCase()} — вы занимаетесь бизнесом, а отчётность, налоги и общение с ФНС на мне.</p>
+      <p>Объясняю простым языком, без «бухгалтерского»: вы понимаете, за что и сколько платите. Слежу за изменениями в законах и предупреждаю о сроках заранее, а не постфактум.</p>
+
+      <div class="guar">
+        <span class="gi"><Icon name="shield" size={26} stroke="#fff"/></span>
+        <div>
+          <b>Работаю по договору с финансовой гарантией</b>
+          <span>Если из-за моей ошибки прилетит штраф или пени — компенсирую сама. Ваши данные остаются конфиденциальными.</span>
+        </div>
+      </div>
+
+      <a href="#zayavka" class="btn" style="margin-top:26px">Обсудить мою задачу</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: center; }
+  .photo { position: relative; max-width: 380px; }
+  .ph { border-radius: 20px; overflow: hidden; aspect-ratio: 4/5; box-shadow: var(--shadow); background: #dfeef0; }
+  .badge { position: absolute; background: #fff; border-radius: 14px; box-shadow: var(--shadow); padding: 11px 14px; display: flex; align-items: center; gap: 10px; font-size: 14px; }
+  .badge b { display: block; font-weight: 700; }
+  .badge small { color: var(--muted); font-size: 12px; }
+  .bi { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .b1 { left: -22px; top: 34px; }
+  .b2 { right: -20px; bottom: 40px; }
+
+  .txt p { font-size: 16px; line-height: 1.6; color: var(--muted); margin: 0 0 14px; max-width: 560px; }
+  .guar { display: flex; gap: 18px; align-items: center; margin-top: 24px; background: linear-gradient(135deg, var(--ink), var(--ink-2)); color: #fff; border-radius: 18px; padding: 24px 28px; }
+  .gi { width: 56px; height: 56px; border-radius: 14px; background: rgba(255,255,255,.14); display: flex; align-items: center; justify-content: center; flex: none; }
+  .guar b { display: block; font-size: 17px; margin-bottom: 5px; }
+  .guar span { font-size: 14.5px; line-height: 1.5; color: rgba(255,255,255,.85); }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; gap: 40px; }
+    .photo { margin: 0 auto; }
+  }
+</style>

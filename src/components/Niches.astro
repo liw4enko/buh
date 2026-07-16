@@ -1,0 +1,34 @@
+---
+import { niches } from '../data/site';
+---
+<section class="sec" id="niche">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow">Отдельные направления</div>
+      <h2 class="h2">Специализация</h2>
+    </div>
+    <div class="grid">
+      {niches.map((n) => (
+        <a class={`n n-${n.variant}`} href={n.href}>
+          <span class="flag">{n.flag}</span>
+          <h3>{n.title}</h3>
+          <p>{n.desc}</p>
+          <span class="lnk">Подробнее →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 40px; }
+  .n { border-radius: var(--radius); padding: 36px; color: #fff; position: relative; overflow: hidden; display: block; transition: transform .18s; }
+  .n:hover { transform: translateY(-3px); }
+  .n-mp { background: linear-gradient(135deg, #15406a, #1f6ea0); }
+  .n-vu { background: linear-gradient(135deg, #0f8377, #17b3a1); }
+  .flag { display: inline-block; background: rgba(255,255,255,.18); padding: 6px 13px; border-radius: 999px; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+  .n h3 { font-size: 23px; font-weight: 800; margin-bottom: 10px; }
+  .n p { color: rgba(255,255,255,.9); font-size: 15px; line-height: 1.55; margin: 0 0 18px; max-width: 460px; }
+  .lnk { font-weight: 600; border-bottom: 1.5px solid rgba(255,255,255,.5); padding-bottom: 2px; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+</style>

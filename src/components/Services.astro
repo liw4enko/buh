@@ -1,0 +1,48 @@
+---
+import Icon from './Icon.astro';
+import { services } from '../data/site';
+---
+<section class="sec" id="uslugi">
+  <div class="wrap">
+    <div class="head">
+      <div class="intro">
+        <div class="eyebrow">Услуги</div>
+        <h2 class="h2">Что я беру на&nbsp;себя</h2>
+        <p class="lead" style="margin-left:0">Полный круг задач — от разовой декларации до ведения бизнеса под ключ. Каждая услуга — отдельно или в составе обслуживания.</p>
+        <a href="#zayavka" class="btn" style="margin-top:24px">Бесплатная консультация</a>
+      </div>
+      <img class="flow" src="/assets/services-flow.png" alt="Схема бухгалтерских услуг" loading="lazy" width="340" height="360" />
+    </div>
+
+    <div class="grid">
+      {services.map((s) => (
+        <a class="card svc" href={s.href}>
+          <span class="ci"><Icon name={s.icon} size={24} stroke="#5fb094" width={1.6} /></span>
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+          <div class="price">{s.price}</div>
+          <span class="arrow">→</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .head { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; margin-bottom: 44px; }
+  .intro { max-width: 520px; }
+  .flow { width: 300px; height: auto; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .svc { padding: 26px; position: relative; transition: transform .18s, box-shadow .18s, border-color .18s; }
+  .svc:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: transparent; }
+  .ci { width: 50px; height: 50px; border-radius: 12px; background: var(--green-100); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .svc h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .svc p { font-size: 14.5px; color: var(--muted); margin: 0 0 16px; }
+  .price { font-weight: 700; color: var(--green-d); font-size: 15px; }
+  .arrow { position: absolute; right: 24px; top: 26px; color: var(--green); opacity: 0; transition: opacity .18s, right .18s; }
+  .svc:hover .arrow { opacity: 1; right: 20px; }
+
+  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 900px) { .flow { display: none; } .head { grid-template-columns: 1fr; margin-bottom: 32px; } }
+  @media (max-width: 540px) { .grid { grid-template-columns: 1fr; } }
+</style>

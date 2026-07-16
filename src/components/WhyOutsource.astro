@@ -1,0 +1,79 @@
+---
+import Icon from './Icon.astro';
+import { compare } from '../data/site';
+---
+<section class="band">
+  <div class="wrap sec">
+    <div class="center">
+      <div class="eyebrow">Выгода</div>
+      <h2 class="h2">Почему выгоднее аутсорс</h2>
+      <p class="lead">Опытный бухгалтер за стоимость меньше, чем оклад одного штатного сотрудника — и без кадровых хлопот.</p>
+    </div>
+
+    <div class="cmp">
+      <!-- штат -->
+      <div class="col">
+        <div class="col-head">
+          <div class="col-name">{compare.staff.title}</div>
+          <span class="tag tag-bad">{compare.staff.tag}</span>
+        </div>
+        {compare.staff.items.map((t) => (
+          <div class="row">
+            <span class="ic ic-bad"><Icon name="cross" size={11} stroke="#b87575" width={2} /></span>
+            <span>{t}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- аутсорс -->
+      <div class="col col-win">
+        <div class="badge">{compare.outsource.badge}</div>
+        <div class="col-head">
+          <div class="col-name">{compare.outsource.title}</div>
+          <span class="tag tag-good">{compare.outsource.tag}</span>
+        </div>
+        {compare.outsource.items.map((t) => (
+          <div class="row">
+            <span class="ic ic-good"><Icon name="check" size={12} stroke="#2f7a5e" width={2} /></span>
+            <span class="dark">{t}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="stats">
+      {compare.stats.map((s) => (
+        <div class="stat card">
+          <div class="num">{s.num}</div>
+          <div class="lbl">{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .band { background: var(--bg-green); border-top: 1px solid #e1ebe4; }
+  .cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; margin-bottom: 28px; }
+  .col { border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; background: #fff; }
+  .col-win { border-color: var(--green); background: var(--green-100); position: relative; }
+  .badge { position: absolute; top: -13px; left: 32px; background: var(--green); color: #fff; font-size: 12px; font-weight: 600; padding: 6px 13px; border-radius: 999px; }
+  .col-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 22px; }
+  .col-name { font-size: 18px; font-weight: 700; }
+  .tag { font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: 999px; letter-spacing: .04em; white-space: nowrap; }
+  .tag-bad { color: #a06060; background: var(--danger-bg); }
+  .tag-good { color: var(--green-d); background: var(--green-300); }
+  .row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; font-size: 15px; line-height: 1.5; color: var(--muted); }
+  .row:last-child { margin-bottom: 0; }
+  .row .dark { color: var(--ink); }
+  .ic { flex: none; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+  .ic-bad { background: var(--danger-bg); }
+  .ic-good { background: var(--green-200); }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .stat { padding: 26px 28px; }
+  .num { font-size: 38px; font-weight: 800; color: var(--green); letter-spacing: -.02em; line-height: 1; margin-bottom: 10px; }
+  .lbl { font-size: 15px; color: var(--muted); line-height: 1.5; }
+
+  @media (max-width: 820px) { .cmp, .stats { grid-template-columns: 1fr; } }
+</style>

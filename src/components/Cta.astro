@@ -1,0 +1,65 @@
+---
+import { cta, contacts } from '../data/site';
+---
+<section class="sec" id="zayavka">
+  <div class="wrap">
+    <div class="pad">
+      <div class="left">
+        <h2 class="h2" style="color:#fff">{cta.title}</h2>
+        <p class="sub">{cta.sub}</p>
+        <div class="line">
+          <span class="dot"></span>{contacts.hours} · {contacts.address}
+        </div>
+      </div>
+
+      <!--
+        ⚠️ КУДА ПАДАЮТ ЗАЯВКИ — выбрать один вариант перед публикацией:
+        1) Formspree/аналог: form action="https://formspree.io/f/XXXX" method="POST"
+        2) Telegram-бот через свой эндпоинт
+        3) Astro API-route (нужен SSR-адаптер)
+        Сейчас — демо: JS показывает «отправлено» без реальной отправки.
+      -->
+      <form class="form" id="leadForm" novalidate>
+        <input name="name" placeholder="Ваше имя" required />
+        <input name="phone" placeholder="Телефон или мессенджер" required />
+        <textarea name="task" rows="2" placeholder="Кратко о задаче (необязательно)"></textarea>
+        <button type="submit" class="btn">Отправить заявку</button>
+        <span class="priv">Нажимая, вы соглашаетесь на обработку персональных данных</span>
+      </form>
+
+      <div class="done" id="leadDone" hidden>
+        <div class="ok">Заявка отправлена 🙌</div>
+        <div class="ok-sub">Свяжусь с вами в ближайшее рабочее время.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  const f = document.getElementById('leadForm');
+  if (f) f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!f.checkValidity()) { f.reportValidity(); return; }
+    // TODO: заменить на реальную отправку (Formspree / Telegram / API-route)
+    f.hidden = true;
+    document.getElementById('leadDone').hidden = false;
+  });
+</script>
+
+<style>
+  .pad { background: linear-gradient(135deg, var(--ink), var(--ink-2)); border-radius: 28px; padding: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; color: #fff; }
+  .left .sub { font-size: 17px; line-height: 1.55; color: #c3cbdb; margin: 14px 0 0; }
+  .line { display: flex; align-items: center; gap: 9px; font-size: 14px; color: #aeb7cc; margin-top: 20px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #5fb094; flex: none; }
+
+  .form { display: flex; flex-direction: column; gap: 13px; }
+  .form input, .form textarea { border: none; background: rgba(255,255,255,.1); border-radius: 11px; padding: 16px 18px; font-size: 16px; color: #fff; outline: none; resize: vertical; }
+  .form input:focus, .form textarea:focus { background: rgba(255,255,255,.16); }
+  .priv { font-size: 13px; color: #8e98b0; text-align: center; }
+
+  .done { background: rgba(95,176,148,.18); border: 1px solid rgba(95,176,148,.5); border-radius: 16px; padding: 40px; text-align: center; }
+  .ok { font-size: 22px; font-weight: 700; color: #9fe0c5; margin-bottom: 8px; }
+  .ok-sub { font-size: 15px; color: #c3cbdb; }
+
+  @media (max-width: 820px) { .pad { grid-template-columns: 1fr; gap: 32px; padding: 36px 28px; } }
+</style>

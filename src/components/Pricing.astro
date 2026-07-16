@@ -1,0 +1,63 @@
+---
+import Icon from './Icon.astro';
+import { pricingCards, pricingExtra } from '../data/site';
+---
+<section class="sec" id="ceny">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow">Цены</div>
+      <h2 class="h2">Стоимость обслуживания</h2>
+      <p class="lead">Честные тарифы без «звоните — узнаете». Финальная цена — по вашему документообороту.</p>
+    </div>
+
+    <div class="cards">
+      {pricingCards.map((c) => (
+        <div class={`plan ${c.featured ? 'plan-hot' : ''}`}>
+          {c.badge && <div class="badge">{c.badge}</div>}
+          <div class="p-name">{c.name}</div>
+          <div class="p-price">{c.price}<span>{c.period}</span></div>
+          <ul class="p-list">
+            {c.features.map((f) => (
+              <li><span class="tick"><Icon name="check" size={12} stroke="#2f7a5e" width={2.2} /></span>{f}</li>
+            ))}
+          </ul>
+          <a href="#zayavka" class={`btn ${c.featured ? '' : 'btn-ghost'}`} style="width:100%">Оставить заявку</a>
+        </div>
+      ))}
+    </div>
+
+    <div class="extra">
+      <div class="extra-title">Разовые услуги и прочие тарифы</div>
+      <div class="extra-grid">
+        {pricingExtra.map((e) => (
+          <div class="e-row"><span>{e.name}</span><b>{e.price}</b></div>
+        ))}
+      </div>
+    </div>
+
+    <p class="note">Не знаете, какой тариф ваш? Оставьте заявку — бесплатно разберу учёт и назову точную цену.</p>
+  </div>
+</section>
+
+<style>
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; margin-top: 46px; }
+  .plan { border: 1px solid var(--line); border-radius: var(--radius); padding: 34px; background: #fff; position: relative; }
+  .plan-hot { border-color: var(--green); background: var(--green-100); }
+  .badge { position: absolute; top: -13px; left: 34px; background: var(--green); color: #fff; font-size: 12px; font-weight: 600; padding: 6px 13px; border-radius: 999px; }
+  .p-name { font-size: 16px; color: var(--muted); font-weight: 600; }
+  .p-price { font-size: 42px; font-weight: 800; letter-spacing: -.02em; margin: 12px 0 18px; }
+  .p-price span { font-size: 16px; font-weight: 500; color: var(--muted-2); }
+  .p-list { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 12px; }
+  .p-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--ink); }
+  .tick { flex: none; width: 20px; height: 20px; border-radius: 50%; background: var(--green-200); display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+
+  .extra { margin-top: 30px; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 32px; background: var(--bg-soft); }
+  .extra-title { font-size: 14px; font-weight: 700; color: var(--ink); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 16px; }
+  .extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 40px; }
+  .e-row { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px dashed var(--line-2); font-size: 15px; color: var(--muted); }
+  .e-row b { color: var(--ink); white-space: nowrap; }
+
+  .note { text-align: center; color: var(--muted); font-size: 14px; margin-top: 22px; }
+
+  @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } .extra-grid { grid-template-columns: 1fr; } }
+</style>

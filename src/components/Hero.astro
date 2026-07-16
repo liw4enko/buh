@@ -1,0 +1,60 @@
+---
+import Icon from './Icon.astro';
+import { hero, trustChips, brand } from '../data/site';
+const chipIcons = ['clock', 'shield', 'bars'];
+---
+<section class="hero" aria-label="Главный экран">
+  <div class="scrim"></div>
+  <div class="wrap content">
+    <h1>{hero.h1}</h1>
+    <p class="sub">{hero.sub}</p>
+    <div class="cta">
+      <a href="#zayavka" class="btn">{hero.primaryCta}</a>
+      <a href="#ceny" class="btn btn-ghost">{hero.secondaryCta}</a>
+    </div>
+    <div class="note"><span class="dot"></span> Отвечаю на заявку в течение {brand.responseTime} в рабочее время</div>
+    <div class="chips">
+      {trustChips.map((c, i) => (
+        <div class="chip">
+          <span class="ico"><Icon name={chipIcons[i]} size={20} stroke="#5fb094" /></span>
+          <span class="txt"><b>{c.strong}</b><br />{c.sub}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background-image: url('/assets/hero.jpg');
+    background-size: cover; background-position: 80% center; background-repeat: no-repeat;
+  }
+  .scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(247,250,251,.94) 0%, rgba(247,250,251,.72) 34%, rgba(247,250,251,.2) 56%, rgba(247,250,251,0) 74%);
+  }
+  .content {
+    position: relative; min-height: 640px;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 40px; padding-bottom: 40px;
+  }
+  h1 { font-weight: 800; font-size: clamp(32px, 4.4vw, 46px); line-height: 1.08; max-width: 620px; margin-bottom: 20px; }
+  .sub { font-size: 19px; line-height: 1.5; color: var(--muted); max-width: 480px; margin: 0 0 30px; }
+  .cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .note { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 14px; margin-top: 18px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 4px rgba(34,197,94,.18); flex: none; }
+
+  .chips { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-top: 34px; color: var(--muted); }
+  .chip { display: flex; align-items: center; gap: 11px; }
+  .ico { width: 40px; height: 40px; border-radius: 10px; background: #fff; border: 1px solid #e4eae9; display: flex; align-items: center; justify-content: center; flex: none; }
+  .txt { font-size: 14px; line-height: 1.25; }
+  .txt b { color: var(--ink); }
+
+  @media (max-width: 680px) {
+    .hero { background-position: 78% center; }
+    .scrim { background: linear-gradient(180deg, rgba(247,250,251,.55) 0%, rgba(247,250,251,.8) 55%, rgba(247,250,251,.9) 100%); }
+    .content { min-height: 560px; }
+    .chips { gap: 16px; }
+  }
+</style>
