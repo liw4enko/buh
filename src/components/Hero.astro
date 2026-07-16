@@ -6,20 +6,25 @@ const chipIcons = ['clock', 'shield', 'bars'];
 <section class="hero" aria-label="Главный экран">
   <div class="scrim"></div>
   <div class="wrap content">
-    <h1>{hero.h1}</h1>
-    <p class="sub">{hero.sub}</p>
-    <div class="cta">
-      <a href="#zayavka" class="btn">{hero.primaryCta}</a>
-      <a href="#ceny" class="btn btn-ghost">{hero.secondaryCta}</a>
-    </div>
-    <div class="note"><span class="dot"></span> Отвечаю на заявку в течение {brand.responseTime} в рабочее время</div>
-    <div class="chips">
-      {trustChips.map((c, i) => (
-        <div class="chip">
-          <span class="ico"><Icon name={chipIcons[i]} size={20} stroke="#5fb094" /></span>
-          <span class="txt"><b>{c.strong}</b><br />{c.sub}</span>
-        </div>
-      ))}
+    <div class="card glass">
+      <h1>{hero.h1}</h1>
+      <p class="sub">{hero.sub}</p>
+
+      <div class="cta">
+        <a href="#zayavka" class="btn"><Icon name="chat" size={19} stroke="#fff" width={1.8} />{hero.primaryCta}</a>
+        <a href="#ceny" class="btn btn-glass"><Icon name="doc" size={19} stroke="#2a3450" width={1.8} />{hero.secondaryCta}</a>
+      </div>
+
+      <div class="note"><span class="dot"></span> Отвечаю на заявку в течение {brand.responseTime} в рабочее время</div>
+
+      <div class="chips">
+        {trustChips.map((c, i) => (
+          <div class="chip">
+            <span class="ico"><Icon name={chipIcons[i]} size={20} stroke="#5fb094" /></span>
+            <span class="txt"><b>{c.strong}</b><br />{c.sub}</span>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>
@@ -27,39 +32,67 @@ const chipIcons = ['clock', 'shield', 'bars'];
 <style>
   .hero {
     position: relative;
+    margin-top: calc(-1 * var(--hdr-h));
+    min-height: clamp(720px, 46vw, 820px);
     background-image: url('/assets/hero.jpg');
     background-size: cover; background-position: 82% 36%; background-repeat: no-repeat;
   }
+  /* лёгкая БЕЛАЯ дымка слева (без синевы), чтобы левая часть была воздушной */
   .scrim {
     position: absolute; inset: 0;
     background: linear-gradient(90deg,
-      rgba(247,250,251,.99) 0%,
-      rgba(247,250,251,.97) 26%,
-      rgba(247,250,251,.85) 42%,
-      rgba(247,250,251,.4) 58%,
-      rgba(247,250,251,0) 76%);
+      rgba(255,255,255,.72) 0%,
+      rgba(255,255,255,.4) 34%,
+      rgba(255,255,255,.08) 52%,
+      rgba(255,255,255,0) 68%);
   }
   .content {
-    position: relative; min-height: clamp(640px, 44vw, 780px);
+    position: relative; min-height: inherit;
     display: flex; flex-direction: column; justify-content: center;
-    padding-top: 40px; padding-bottom: 40px;
+    padding-top: calc(var(--hdr-h) + 20px); padding-bottom: 40px;
   }
-  h1 { font-weight: 800; font-size: clamp(32px, 4.4vw, 46px); line-height: 1.08; max-width: 620px; margin-bottom: 20px; }
-  .sub { font-size: 19px; line-height: 1.5; color: var(--muted); max-width: 480px; margin: 0 0 30px; }
+
+  /* матовое стекло на БЕЛОМ */
+  .glass {
+    background: rgba(255, 255, 255, .55);
+    backdrop-filter: blur(22px) saturate(1.12);
+    -webkit-backdrop-filter: blur(22px) saturate(1.12);
+    border: 1px solid rgba(255, 255, 255, .8);
+    box-shadow: 0 24px 64px rgba(42, 52, 80, .14);
+  }
+  .card { max-width: 660px; border-radius: 30px; padding: 44px; }
+
+  h1 { font-weight: 800; font-size: clamp(30px, 3.7vw, 44px); line-height: 1.1; margin-bottom: 18px; }
+  .sub { font-size: 18px; line-height: 1.55; color: var(--muted); margin: 0 0 28px; max-width: 560px; }
+
   .cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .cta .btn { padding: 15px 24px; }
+  .btn-glass {
+    background: rgba(255, 255, 255, .5);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    color: var(--ink); border: 1px solid rgba(42, 52, 80, .14);
+  }
+  .btn-glass:hover { background: rgba(255, 255, 255, .75); }
+
   .note { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 14px; margin-top: 18px; }
   .dot { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 4px rgba(34,197,94,.18); flex: none; }
 
-  .chips { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-top: 34px; color: var(--muted); }
-  .chip { display: flex; align-items: center; gap: 11px; }
-  .ico { width: 40px; height: 40px; border-radius: 10px; background: #fff; border: 1px solid #e4eae9; display: flex; align-items: center; justify-content: center; flex: none; }
-  .txt { font-size: 14px; line-height: 1.25; }
-  .txt b { color: var(--ink); }
+  .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 30px; }
+  .chip {
+    display: flex; align-items: center; gap: 11px;
+    background: rgba(255, 255, 255, .5); border: 1px solid rgba(255, 255, 255, .75);
+    border-radius: 16px; padding: 14px;
+  }
+  .ico { width: 40px; height: 40px; border-radius: 11px; background: rgba(255,255,255,.85); border: 1px solid rgba(95,176,148,.35); display: flex; align-items: center; justify-content: center; flex: none; }
+  .txt { font-size: 13px; line-height: 1.25; color: var(--muted); }
+  .txt b { color: var(--ink); font-size: 14px; }
 
-  @media (max-width: 680px) {
-    .hero { background-position: 78% 12%; }
-    .scrim { background: linear-gradient(180deg, rgba(247,250,251,.55) 0%, rgba(247,250,251,.8) 55%, rgba(247,250,251,.9) 100%); }
-    .content { min-height: 560px; }
-    .chips { gap: 16px; }
+  @media (max-width: 760px) {
+    .hero { background-position: 74% 30%; min-height: auto; }
+    .scrim { background: linear-gradient(180deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,.75) 60%, rgba(255,255,255,.85) 100%); }
+    .content { padding-bottom: 48px; }
+    .card { padding: 28px 22px; }
+    .chips { grid-template-columns: 1fr; }
+    .chip { max-width: none; }
   }
 </style>
