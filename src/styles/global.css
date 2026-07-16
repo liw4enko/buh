@@ -33,7 +33,7 @@
   --shadow: 0 18px 44px rgba(42, 52, 80, .10);
   --maxw: 1240px;
   --pad: 40px;
-  --hdr-h: 84px;   /* высота плавающей шапки — hero уходит под неё */
+  --hdr-h: 96px;   /* высота плавающей (fixed) шапки — контент hero уходит под неё */
 }
 
 * { box-sizing: border-box; }
@@ -53,6 +53,9 @@ img { max-width: 100%; display: block; }
 input, button, textarea { font-family: inherit; }
 
 h1, h2, h3 { margin: 0; letter-spacing: -.02em; }
+
+/* якорные переходы не должны прятаться под фиксированной шапкой */
+[id] { scroll-margin-top: 112px; }
 
 /* ——— layout primitives ——— */
 .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
