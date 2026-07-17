@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { services } from '../data/site';
+import { services, contacts } from '../data/site';
 
 // Блок «Что беру на себя» — иллюстрация-схема + «плавающие» подписи вокруг неё
 // (повтор блока из исходного дизайна). На узких экранах — аккуратный список.
@@ -20,7 +20,7 @@ const items = [
       <div class="svcintro">
         <div class="eyebrow2">УСЛУГИ</div>
         <h2 class="svch2">Что я беру на&nbsp;себя</h2>
-        <a href="#zayavka" class="btn">Бесплатная консультация</a>
+        <a href={contacts.phoneHref} class="btn"><Icon name="phone" size={18} stroke="#fff" width={2} />Позвонить</a>
       </div>
 
       <!-- иллюстрация -->

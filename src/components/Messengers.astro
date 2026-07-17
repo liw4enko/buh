@@ -1,0 +1,28 @@
+---
+import { contacts } from '../data/site';
+---
+<a class="msgr-btn msgr-max" href={contacts.maxLink} target="_blank" rel="noopener" aria-label="Написать в МАКС">MAX</a>
+<a class="msgr-btn msgr-tg" href={contacts.telegram} target="_blank" rel="noopener" aria-label="Написать в Telegram">
+  <svg class="tgicon" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+    <path d="M23.91 3.79L20.3 20.84c-.25 1.21-.98 1.5-2 .94l-5.5-4.07-2.66 2.57c-.3.3-.55.56-1.1.56l.4-5.62 10.24-9.25c.44-.39-.1-.61-.69-.22L6.35 13.4l-5.42-1.7c-1.18-.36-1.2-1.17.25-1.73L22.4 2.34c.98-.36 1.84.22 1.51 1.45z"/>
+  </svg>
+</a>
+
+<style>
+  .msgr-btn {
+    width: 42px; height: 42px; border-radius: 12px; flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 12.5px; letter-spacing: .04em;
+    transition: filter .18s, transform .18s;
+  }
+  .msgr-btn:hover { filter: brightness(1.07); transform: translateY(-1px); }
+  .tgicon { width: 22px; height: 22px; }
+  /* фирменные цвета (заменить на точные из брендбуков при необходимости) */
+  .msgr-max { background: #2E7CF6; }
+  .msgr-tg  { background: linear-gradient(180deg, #2AABEE, #229ED9); }
+
+  @media (max-width: 760px) {
+    .msgr-btn { width: 36px; height: 36px; font-size: 11px; }
+    .tgicon { width: 18px; height: 18px; }
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
-import { hero, trustChips, brand } from '../data/site';
+import Messengers from './Messengers.astro';
+import { hero, trustChips, brand, contacts } from '../data/site';
 ---
 <section class="hero" aria-label="Главный экран">
   <div class="scrim"></div>
@@ -10,8 +11,9 @@ import { hero, trustChips, brand } from '../data/site';
       <p class="sub">{hero.sub}</p>
 
       <div class="cta">
-        <a href="#zayavka" class="btn"><Icon name="chat" size={19} stroke="#fff" width={1.8} />{hero.primaryCta}</a>
+        <a href={contacts.phoneHref} class="btn"><Icon name="phone" size={19} stroke="#fff" width={2} />{hero.primaryCta}</a>
         <a href="#ceny" class="btn btn-glass"><Icon name="doc" size={19} stroke="#2a3450" width={1.8} />{hero.secondaryCta}</a>
+        <Messengers />
       </div>
 
       <div class="note"><span class="dot"></span> Отвечаю на заявку в течение {brand.responseTime} в рабочее время</div>
