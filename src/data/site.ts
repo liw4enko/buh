@@ -24,16 +24,15 @@ export const brand = {
 };
 
 export const contacts = {
-  // __PLACEHOLDER__ — реальный телефон
-  phone: '+7 (3532) 00-00-00',
-  phoneHref: 'tel:+73532000000',
+  phone: '+7 987 797-85-88',
+  phoneHref: 'tel:+79877978588',
   // __PLACEHOLDER__ — реальная почта, куда падают заявки
   email: 'zayavki@example.ru',
   // __PLACEHOLDER__ — точный адрес (нужен для Яндекс Бизнеса и schema.org)
   address: 'г. Оренбург, ул. Туркестанская, 5, офис 707Б',
   hours: 'Пн–Пт, 9:00–18:00',
-  // __PLACEHOLDER__ — реальные ссылки мессенджеров
-  whatsapp: 'https://wa.me/73532000000',
+  whatsapp: 'https://wa.me/79877978588',
+  // __PLACEHOLDER__ — реальная ссылка Telegram (username)
   telegram: 'https://t.me/username',
 };
 
