@@ -107,18 +107,18 @@ const items = [
   .allsvc-band {
     position: relative; overflow: hidden;
     background:
-      radial-gradient(130% 120% at 50% 22%, transparent 50%, rgba(30,55,110,.08) 100%), /* виньетка */
-      linear-gradient(180deg, #d6e2f5 0%, #e6eef9 100%);                                 /* заметная голубая база */
+      radial-gradient(130% 120% at 50% 22%, transparent 52%, rgba(55,65,90,.055) 100%), /* виньетка */
+      linear-gradient(180deg, #e4e8ef 0%, #eef1f6 100%);                                 /* серо-голубая база */
   }
-  /* белые засветы по трём углам (асимметрично) + сильнее голубой в остальном */
+  /* белые засветы по трём углам (асимметрично) + мягкий серо-голубой в остальном */
   .allsvc-band::before {
     content: ""; position: absolute; inset: -200px; z-index: 0; pointer-events: none;
     background:
-      radial-gradient(480px circle at 9% 5%,   rgba(255,255,255,1),   transparent 60%),  /* лево-верх, средний */
-      radial-gradient(760px circle at 96% 2%,  rgba(255,255,255,1),   transparent 62%),  /* право-верх, большой */
-      radial-gradient(340px circle at 99% 99%, rgba(255,255,255,.94), transparent 56%),  /* право-низ, маленький */
-      radial-gradient(760px circle at 12% 102%, rgba(165,197,244,.72), transparent 66%), /* лево-низ — синий, сильнее */
-      radial-gradient(620px circle at 58% 64%, rgba(188,212,248,.45), transparent 68%);  /* центр — лёгкий синий */
+      radial-gradient(500px circle at 9% 5%,   rgba(255,255,255,1),   transparent 62%),  /* лево-верх, средний */
+      radial-gradient(780px circle at 96% 2%,  rgba(255,255,255,1),   transparent 64%),  /* право-верх, большой */
+      radial-gradient(360px circle at 99% 99%, rgba(255,255,255,.95), transparent 58%),  /* право-низ, маленький */
+      radial-gradient(760px circle at 12% 102%, rgba(198,208,224,.55), transparent 66%), /* лево-низ — серо-голубой */
+      radial-gradient(620px circle at 58% 64%, rgba(206,214,227,.38), transparent 68%);  /* центр — серо-голубой */
     filter: blur(58px);
     animation: bgDrift 32s ease-in-out infinite alternate;
     will-change: transform;
