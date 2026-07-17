@@ -30,7 +30,6 @@ const items = [
       {items.map((it) => (
         <div class={`svclbl ${it.pos}`}>
           <div class="t">{it.title}</div>
-          <div class="d">{it.desc}</div>
         </div>
       ))}
 
@@ -39,9 +38,8 @@ const items = [
         {items.map((it) => (
           <div class="row">
             <span class="ic"><Icon name={it.icon} size={24} stroke="#5fb094" width={1.6} /></span>
-            <div>
+            <div class="rowtxt">
               <div class="t">{it.title}</div>
-              <div class="d">{it.desc}</div>
             </div>
           </div>
         ))}
@@ -87,7 +85,7 @@ const items = [
   .lbl6 { right: 52%; top: 248px; width: 20%; text-align: right; }
 
   .svclist { display: none; flex-direction: column; gap: 24px; }
-  .svclist .row { display: flex; gap: 15px; }
+  .svclist .row { display: flex; gap: 15px; align-items: center; }
   .svclist .ic { flex: none; width: 52px; height: 52px; border-radius: 50%; background: #fff; border: 1.5px solid var(--green-200); display: flex; align-items: center; justify-content: center; }
   .svclist .t { font-size: 15px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
   .svclist .d { font-size: 14px; line-height: 1.5; color: var(--muted); }
