@@ -102,13 +102,45 @@ const items = [
     .svclist { display: flex; }
   }
 
-  /* ——— секция с карточками: свой мягкий фон-градиент ——— */
+  /* ——— секция с карточками: переливающийся фон ——— */
   .allsvc-band {
     position: relative; overflow: hidden;
+    background: linear-gradient(180deg, #f2f8f6 0%, #e7f0ee 100%);
+  }
+  /* два слоя цветных пятен, перетекающих в противофазе → шиммер */
+  .allsvc-band::before,
+  .allsvc-band::after {
+    content: ""; position: absolute; inset: -30%; z-index: 0; pointer-events: none;
+    filter: blur(42px); will-change: transform;
+  }
+  .allsvc-band::before {
     background:
-      radial-gradient(1100px 460px at 88% 6%, rgba(95,176,148,.12), transparent 60%),
-      radial-gradient(900px 560px at 6% 104%, rgba(42,52,80,.05), transparent 55%),
-      linear-gradient(180deg, #f7faf9 0%, #eef4f3 100%);
+      radial-gradient(40% 50% at 15% 20%, rgba(95,176,148,.55), transparent 60%),
+      radial-gradient(45% 52% at 85% 10%, rgba(23,179,161,.48), transparent 62%),
+      radial-gradient(50% 55% at 72% 90%, rgba(110,165,225,.44), transparent 60%),
+      radial-gradient(42% 50% at 5% 95%, rgba(120,200,170,.42), transparent 60%);
+    animation: shimmerA 20s ease-in-out infinite alternate;
+  }
+  .allsvc-band::after {
+    background:
+      radial-gradient(38% 46% at 62% 28%, rgba(150,130,225,.30), transparent 60%),
+      radial-gradient(46% 52% at 28% 72%, rgba(80,205,190,.42), transparent 62%),
+      radial-gradient(42% 50% at 95% 62%, rgba(120,160,235,.36), transparent 60%);
+    animation: shimmerB 27s ease-in-out infinite alternate;
+  }
+  .allsvc-band > .wrap { position: relative; z-index: 1; }
+  @keyframes shimmerA {
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    50%  { transform: translate3d(-4%, 3%, 0) scale(1.1) rotate(2deg); }
+    100% { transform: translate3d(4%, -3%, 0) scale(1.06) rotate(-1.5deg); }
+  }
+  @keyframes shimmerB {
+    0%   { transform: translate3d(0, 0, 0) scale(1.05) rotate(-1deg); }
+    50%  { transform: translate3d(5%, -2%, 0) scale(1) rotate(1.5deg); }
+    100% { transform: translate3d(-4%, 3%, 0) scale(1.12) rotate(-2deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .allsvc-band::before, .allsvc-band::after { animation: none; }
   }
   .allsvc-h { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 28px; }
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
