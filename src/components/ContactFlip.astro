@@ -28,7 +28,7 @@ const { featured = false } = Astro.props;
     transition: transform .55s cubic-bezier(.45,.12,.2,1);
   }
   .flip:hover .flip-inner,
-  .flip:focus-within .flip-inner { transform: rotateY(180deg); }
+  .flip:focus-within .flip-inner { transform: rotateX(180deg); }
 
   .flip-front, .flip-back {
     position: absolute; inset: 0; border-radius: 12px;
@@ -40,7 +40,7 @@ const { featured = false } = Astro.props;
   .hot .flip-front { background: var(--green); color: #fff; border: none; }
 
   /* оборотная сторона — светлая панель с 3 иконками */
-  .flip-back { transform: rotateY(180deg); gap: 12px; background: #fff; border: 1px solid var(--line-2); }
+  .flip-back { transform: rotateX(180deg); gap: 12px; background: #fff; border: 1px solid var(--line-2); }
   .hot .flip-back { border-color: var(--green-200); background: var(--green-100); }
 
   .fi { width: 40px; height: 40px; border-radius: 11px; overflow: hidden; flex: none;
@@ -53,5 +53,5 @@ const { featured = false } = Astro.props;
   .fi-tg svg { width: 21px; height: 21px; }
 
   /* на тач-устройствах наведения нет — сразу показываем иконки */
-  @media (hover: none) { .flip-inner { transform: rotateY(180deg); } }
+  @media (hover: none) { .flip-inner { transform: rotateX(180deg); } }
 </style>
