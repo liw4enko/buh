@@ -18,17 +18,15 @@ import { hero, trustChips, brand } from '../data/site';
 
       <div class="chips">
         {trustChips.map((c) => (
-          c.type === 'rating' ? (
-            <div class="chip rating">
-              <span class="rnum">{c.rating}</span>
-              <span class="stars" aria-label={`Рейтинг ${c.rating} из 5`}>★★★★★</span>
-            </div>
-          ) : (
-            <div class="chip">
-              <span class="chk"><Icon name="check" size={21} stroke="#5fb094" width={2.4} /></span>
-              <span class="txt"><b>{c.strong}</b><br />{c.sub}</span>
-            </div>
-          )
+          <div class="chip">
+            <span class="chk"><Icon name="check" size={21} stroke="#5fb094" width={2.4} /></span>
+            <span class="txt">
+              <b>{c.type === 'rating' ? c.rating : c.strong}</b><br />
+              {c.type === 'rating'
+                ? <span class="stars" aria-label={`Рейтинг ${c.rating} из 5`}>★★★★★</span>
+                : c.sub}
+            </span>
+          </div>
         ))}
       </div>
     </div>
@@ -88,10 +86,7 @@ import { hero, trustChips, brand } from '../data/site';
   .chk { display: flex; align-items: center; justify-content: center; flex: none; }
   .txt { font-size: 13px; line-height: 1.25; color: var(--muted); }
   .txt b { color: var(--ink); font-size: 14.5px; }
-
-  .rating { gap: 8px; }
-  .rating .rnum { font-size: 18px; font-weight: 800; color: var(--ink); }
-  .rating .stars { color: #f5a623; font-size: 16px; letter-spacing: 1px; }
+  .stars { color: #f5a623; font-size: 13px; letter-spacing: 1px; }
 
   /* на широких экранах кадр шире → лицо поднимается, компенсируем сдвигом вниз */
   @media (min-width: 1500px) { .hero { background-position: 82% 32%; } }
