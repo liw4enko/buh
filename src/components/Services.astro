@@ -107,17 +107,17 @@ const items = [
   .allsvc-band {
     position: relative; overflow: hidden;
     background:
-      radial-gradient(130% 120% at 50% 30%, transparent 58%, rgba(40,60,100,.045) 100%), /* виньетка */
-      linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);                                  /* лёгкий линейный */
+      radial-gradient(130% 120% at 50% 30%, transparent 58%, rgba(40,60,100,.05) 100%), /* виньетка */
+      linear-gradient(180deg, #e9f0fa 0%, #eef4fb 100%);                                 /* голубоватая база */
   }
-  /* большие голубоватые пятна + сильное размытие */
+  /* белые засветы по трём углам (асимметрично) + голубой в остальном */
   .allsvc-band::before {
     content: ""; position: absolute; inset: -200px; z-index: 0; pointer-events: none;
     background:
-      radial-gradient(600px circle at 15% 20%, rgba(190,215,255,.40), transparent 70%),
-      radial-gradient(700px circle at 90% 80%, rgba(205,225,255,.36), transparent 70%),
-      radial-gradient(520px circle at 55% 98%, rgba(221,234,255,.30), transparent 70%),
-      radial-gradient(480px circle at 80% 12%, rgba(231,241,255,.34), transparent 72%);
+      radial-gradient(520px circle at 11% 7%,  rgba(255,255,255,.95), transparent 66%),  /* лево-верх, средний */
+      radial-gradient(800px circle at 94% 4%,  rgba(255,255,255,.98), transparent 68%),  /* право-верх, большой */
+      radial-gradient(380px circle at 97% 97%, rgba(255,255,255,.85), transparent 62%),  /* право-низ, маленький */
+      radial-gradient(640px circle at 16% 98%, rgba(196,219,255,.50), transparent 70%);  /* лево-низ — голубой */
     filter: blur(80px);
     animation: bgDrift 32s ease-in-out infinite alternate;
     will-change: transform;
