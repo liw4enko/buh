@@ -45,21 +45,23 @@ const items = [
         ))}
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- ВАРИАНТ ДЛЯ СРАВНЕНИЯ: сетка кликабельных карточек (ведут на будущие страницы услуг) -->
-    <div class="allsvc">
-      <div class="allsvc-h">Все услуги по отдельности</div>
-      <div class="grid">
-        {services.map((s) => (
-          <a class="card svc" href={s.href}>
-            <span class="ci"><Icon name={s.icon} size={24} stroke="#5fb094" width={1.6} /></span>
-            <h3>{s.title}</h3>
-            <p>{s.desc}</p>
-            <div class="price">{s.price}</div>
-            <span class="arrow">→</span>
-          </a>
-        ))}
-      </div>
+<!-- Отдельная секция со своим фоном-градиентом — отделяет карточки от блока выше -->
+<section class="allsvc-band">
+  <div class="wrap sec">
+    <div class="allsvc-h">Все услуги по отдельности</div>
+    <div class="grid">
+      {services.map((s) => (
+        <a class="card svc" href={s.href}>
+          <span class="ci"><Icon name={s.icon} size={24} stroke="#5fb094" width={1.6} /></span>
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+          <div class="price">{s.price}</div>
+          <span class="arrow">→</span>
+        </a>
+      ))}
     </div>
   </div>
 </section>
@@ -100,12 +102,18 @@ const items = [
     .svclist { display: flex; }
   }
 
-  /* ——— сетка кликабельных карточек (вариант для сравнения) ——— */
-  .allsvc { margin-top: 64px; padding-top: 44px; border-top: 1px solid var(--line); }
-  .allsvc-h { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 24px; }
+  /* ——— секция с карточками: свой мягкий фон-градиент ——— */
+  .allsvc-band {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(1100px 460px at 88% 6%, rgba(95,176,148,.12), transparent 60%),
+      radial-gradient(900px 560px at 6% 104%, rgba(42,52,80,.05), transparent 55%),
+      linear-gradient(180deg, #f7faf9 0%, #eef4f3 100%);
+  }
+  .allsvc-h { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 28px; }
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .svc { padding: 26px; position: relative; transition: transform .18s, box-shadow .18s, border-color .18s; }
-  .svc:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: transparent; }
+  .svc { padding: 26px; position: relative; box-shadow: var(--shadow-s); border-color: transparent; transition: transform .18s, box-shadow .18s; }
+  .svc:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
   .ci { width: 50px; height: 50px; border-radius: 12px; background: var(--green-100); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
   .svc h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
   .svc p { font-size: 14.5px; color: var(--muted); margin: 0 0 16px; }
