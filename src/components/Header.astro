@@ -20,7 +20,7 @@ import { brand, nav, contacts } from '../data/site';
 
     <div class="right">
       <a href={contacts.phoneHref} class="btn call">
-        <Icon name="phone" size={18} stroke="#fff" width={2} /><span class="lbl">Позвонить</span>
+        <Icon name="phone" size={18} stroke="#fff" width={2} /><span class="lbl">{contacts.phone}</span>
       </a>
       <Messengers />
       <button class="burger" aria-label="Меню" onclick="document.querySelector('.links').classList.toggle('open')">
