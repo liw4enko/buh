@@ -12,7 +12,10 @@ import { hero, trustChips, brand, contacts } from '../data/site';
 
       <div class="cta">
         <a href={contacts.phoneHref} class="btn"><Icon name="phone" size={19} stroke="#fff" width={2} />{hero.primaryCta}</a>
-        <Messengers />
+        <span class="write">
+          <span class="write-lbl">Написать</span>
+          <Messengers />
+        </span>
       </div>
 
       <div class="note"><span class="dot"></span> Отвечаю на заявку в течение {brand.responseTime} в рабочее время</div>
@@ -69,8 +72,10 @@ import { hero, trustChips, brand, contacts } from '../data/site';
   h1 { font-weight: 800; font-size: clamp(30px, 3.7vw, 44px); line-height: 1.1; margin-bottom: 18px; }
   .sub { font-size: 18px; line-height: 1.55; color: var(--muted); margin: 0 0 28px; max-width: 560px; }
 
-  .cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; --msgr-size: 55px; }
+  .cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; --msgr-size: 55px; }
   .cta .btn { padding: 15px 24px; }
+  .write { display: inline-flex; align-items: center; gap: 10px; }
+  .write-lbl { font-size: 14px; font-weight: 600; color: var(--muted); }
   .btn-glass {
     background: rgba(255, 255, 255, .5);
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
