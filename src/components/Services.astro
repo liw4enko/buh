@@ -1,55 +1,9 @@
 ---
 import Icon from './Icon.astro';
-import { services, contacts } from '../data/site';
-
-// Блок «Что беру на себя» — иллюстрация-схема + «плавающие» подписи вокруг неё
-// (повтор блока из исходного дизайна). На узких экранах — аккуратный список.
-const items = [
-  { icon: 'ip',      pos: 'lbl1', title: 'ВЕДЕНИЕ УЧЁТА ИП И ООО',           desc: 'Полный цикл бухгалтерии. Точно, вовремя, по стандартам.' },
-  { icon: 'report',  pos: 'lbl2', title: 'СДАЧА ОТЧЁТНОСТИ В ФНС, СФР',       desc: 'Гарантия сдачи вовремя. Без ошибок и штрафов.' },
-  { icon: 'restore', pos: 'lbl3', title: 'ВОССТАНОВЛЕНИЕ УЧЁТА',              desc: 'Исправление ошибок прошлых периодов, аудит.' },
-  { icon: 'envelope',pos: 'lbl4', title: 'СОПРОВОЖДЕНИЕ ПРОВЕРОК',            desc: 'Защита интересов, ответы на запросы налоговой.' },
-  { icon: 'audit',   pos: 'lbl5', title: 'РАСЧЁТ ЗАРПЛАТЫ И КАДРЫ',           desc: 'Учёт сотрудников, начисления, отпуска, больничные.' },
-  { icon: 'scales',  pos: 'lbl6', title: 'НАЛОГОВОЕ ПЛАНИРОВАНИЕ И ОПТИМИЗАЦИЯ', desc: 'Легальное снижение налоговой нагрузки, стратегии.' },
-];
+import { services } from '../data/site';
 ---
-<section class="sec" id="uslugi">
-  <div class="wrap">
-    <div class="svcblock">
-      <!-- интро -->
-      <div class="svcintro">
-        <div class="eyebrow2">УСЛУГИ</div>
-        <h2 class="svch2">Что я беру на&nbsp;себя</h2>
-        <a href={contacts.phoneHref} class="btn"><Icon name="phone" size={18} stroke="#fff" width={2} />Позвонить</a>
-      </div>
-
-      <!-- иллюстрация -->
-      <img class="svcimg" src="/assets/services-flow.png" alt="Схема бухгалтерских услуг" loading="lazy" />
-
-      <!-- плавающие подписи (десктоп) -->
-      {items.map((it) => (
-        <div class={`svclbl ${it.pos}`}>
-          <div class="t">{it.title}</div>
-        </div>
-      ))}
-
-      <!-- список (мобильные) -->
-      <div class="svclist">
-        {items.map((it) => (
-          <div class="row">
-            <span class="ic"><Icon name={it.icon} size={24} stroke="#5fb094" width={1.6} /></span>
-            <div class="rowtxt">
-              <div class="t">{it.title}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Отдельная секция со своим фоном-градиентом — отделяет карточки от блока выше -->
-<section class="allsvc-band">
+<!-- Секция «Все услуги по отдельности» — карточки на воздушном фоне -->
+<section class="allsvc-band" id="uslugi">
   <span class="deco" aria-hidden="true"></span>
   <div class="wrap sec">
     <div class="allsvc-h">Все услуги по отдельности</div>
@@ -68,45 +22,9 @@ const items = [
 </section>
 
 <style>
-  .svcblock { position: relative; min-height: 370px; }
-
-  .svcintro { position: absolute; left: 0; top: 24px; width: 260px; z-index: 2; }
-  .eyebrow2 { font-size: 14px; font-weight: 600; color: var(--ink); letter-spacing: .16em; margin-bottom: 18px; }
-  .svch2 { font-weight: 800; font-size: clamp(34px, 4.2vw, 56px); line-height: .98; letter-spacing: -.03em; margin: 0 0 30px; }
-
-  .svcimg { position: absolute; left: 46%; top: 8px; width: 28%; max-width: 320px; height: auto; z-index: 1; pointer-events: none; }
-
-  .svclbl { position: absolute; z-index: 2; }
-  .svclbl .t { font-size: 13.5px; font-weight: 800; letter-spacing: .02em; color: var(--ink); margin-bottom: 5px; }
-  .svclbl .d { font-size: 13px; line-height: 1.45; color: var(--muted); }
-
-  /* правая колонка — единый левый край, равные интервалы */
-  .lbl1 { left: 76%; top: 34px;  width: 23%; }
-  .lbl2 { left: 76%; top: 122px; width: 23%; }
-  .lbl3 { left: 76%; top: 210px; width: 23%; }
-  .lbl4 { left: 76%; top: 298px; width: 23%; }
-  /* левая колонка — единый правый край */
-  .lbl5 { right: 55%; top: 150px; width: 21%; text-align: right; }
-  .lbl6 { right: 55%; top: 250px; width: 21%; text-align: right; }
-
-  .svclist { display: none; flex-direction: column; gap: 24px; }
-  .svclist .row { display: flex; gap: 15px; align-items: center; }
-  .svclist .ic { flex: none; width: 52px; height: 52px; border-radius: 50%; background: #fff; border: 1.5px solid var(--green-200); display: flex; align-items: center; justify-content: center; }
-  .svclist .t { font-size: 15px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
-  .svclist .d { font-size: 14px; line-height: 1.5; color: var(--muted); }
-
-  /* на узких экранах — прячем иллюстрацию и подписи, показываем список */
-  @media (max-width: 1040px) {
-    .svcblock { min-height: auto; }
-    .svcintro { position: static; width: auto; margin-bottom: 26px; }
-    .svcimg, .svclbl { display: none; }
-    .svclist { display: flex; }
-  }
-
   /* ——— секция с карточками: «воздушный» фон (radial-gradients + blur + шум + виньетка) ——— */
   .allsvc-band {
     position: relative; overflow: hidden;
-    /* градиентный стек (подобран вручную) */
     background:
       radial-gradient(60% 85% at 8% 12%,  rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 55%),
       radial-gradient(72% 95% at 90% 14%, rgba(158,192,248,.20) 0%, rgba(158,192,248,0) 60%),
@@ -115,7 +33,7 @@ const items = [
       radial-gradient(55% 78% at 58% 48%, rgb(255 255 255 / 26%) 0%, rgba(196,186,246,0) 68%),
       linear-gradient(331deg, #f4f8fe 0%, #ffffff5c 55%, #e6eefa 100%);
   }
-  /* тонкий шум (SVG-turbulence, без внешней картинки) — «дорогой» вид */
+  /* тонкий шум (SVG-turbulence) */
   .allsvc-band::after {
     content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -127,11 +45,6 @@ const items = [
   .deco::after { content: ""; position: absolute; inset: 120px; border-radius: 50%; border: 1px solid rgba(70,140,255,.04); }
 
   .allsvc-band > .wrap { position: relative; z-index: 1; }
-  @keyframes bgDrift {
-    0%   { transform: translate3d(0, 0, 0) scale(1); }
-    100% { transform: translate3d(2.5%, -2%, 0) scale(1.06); }
-  }
-  @media (prefers-reduced-motion: reduce) { .allsvc-band::before { animation: none; } }
   .allsvc-h { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 28px; }
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
   .svc { padding: 26px; position: relative; box-shadow: var(--shadow-s); border-color: transparent; transition: transform .18s, box-shadow .18s; }
