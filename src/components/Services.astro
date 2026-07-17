@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { services } from '../data/site';
 
 // Блок «Что беру на себя» — иллюстрация-схема + «плавающие» подписи вокруг неё
 // (повтор блока из исходного дизайна). На узких экранах — аккуратный список.
@@ -46,6 +47,22 @@ const items = [
         ))}
       </div>
     </div>
+
+    <!-- ВАРИАНТ ДЛЯ СРАВНЕНИЯ: сетка кликабельных карточек (ведут на будущие страницы услуг) -->
+    <div class="allsvc">
+      <div class="allsvc-h">Все услуги по отдельности</div>
+      <div class="grid">
+        {services.map((s) => (
+          <a class="card svc" href={s.href}>
+            <span class="ci"><Icon name={s.icon} size={24} stroke="#5fb094" width={1.6} /></span>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+            <div class="price">{s.price}</div>
+            <span class="arrow">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
   </div>
 </section>
 
@@ -82,4 +99,20 @@ const items = [
     .svcimg, .svclbl { display: none; }
     .svclist { display: flex; }
   }
+
+  /* ——— сетка кликабельных карточек (вариант для сравнения) ——— */
+  .allsvc { margin-top: 64px; padding-top: 44px; border-top: 1px solid var(--line); }
+  .allsvc-h { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .svc { padding: 26px; position: relative; transition: transform .18s, box-shadow .18s, border-color .18s; }
+  .svc:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: transparent; }
+  .ci { width: 50px; height: 50px; border-radius: 12px; background: var(--green-100); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .svc h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .svc p { font-size: 14.5px; color: var(--muted); margin: 0 0 16px; }
+  .price { font-weight: 700; color: var(--green-d); font-size: 15px; }
+  .arrow { position: absolute; right: 24px; top: 26px; color: var(--green); opacity: 0; transition: opacity .18s, right .18s; }
+  .svc:hover .arrow { opacity: 1; right: 20px; }
+
+  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .grid { grid-template-columns: 1fr; } }
 </style>
