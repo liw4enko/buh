@@ -136,7 +136,8 @@ const items = [
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
   .svc { padding: 26px; position: relative; box-shadow: var(--shadow-s); border-color: transparent; transition: transform .18s, box-shadow .18s; }
   .svc:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-  .ci { width: 50px; height: 50px; border-radius: 12px; background: var(--green-100); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  /* органичная «блоб»-форма вместо квадрата */
+  .ci { width: 54px; height: 54px; border-radius: 42% 58% 63% 37% / 45% 44% 56% 55%; background: var(--green-100); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
   .svc h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
   .svc p { font-size: 14.5px; color: var(--muted); margin: 0 0 16px; }
   .price { font-weight: 700; color: var(--green-d); font-size: 15px; }
