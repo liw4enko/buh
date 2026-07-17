@@ -72,10 +72,15 @@ import { hero, trustChips, brand, contacts } from '../data/site';
 
   .cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; --msgr-size: 55px; }
   .cta .btn { padding: 15px 24px; }
-  /* подпись «Написать» сверху, иконки снизу; вся группа по высоте кнопки */
-  .write { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; height: 55px; }
-  .write-lbl { font-size: 12.5px; font-weight: 600; color: var(--muted); line-height: 1; }
-  .write-icons { display: inline-flex; gap: 8px; --msgr-size: 32px; }
+  /* «Написать» + иконки в строке, в рамке-пилюле по высоте кнопки */
+  .write {
+    display: inline-flex; align-items: center; gap: 12px;
+    height: 55px; padding: 0 16px;
+    border: 1px solid var(--line-2); border-radius: 14px;
+    background: rgba(255, 255, 255, .35);
+  }
+  .write-lbl { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .write-icons { display: inline-flex; gap: 8px; --msgr-size: 38px; }
   .btn-glass {
     background: rgba(255, 255, 255, .5);
     backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
