@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import ContactFlip from './ContactFlip.astro';
 import { pricingCards, pricingExtra } from '../data/site';
 ---
 <section class="sec" id="ceny">
@@ -21,7 +22,7 @@ import { pricingCards, pricingExtra } from '../data/site';
               <li><span class="tick"><Icon name="check" size={12} stroke="#2f7a5e" width={2.2} /></span>{f}</li>
             ))}
           </ul>
-          <a href="#zayavka" class={`btn ${c.featured ? '' : 'btn-ghost'}`} style="width:100%">Оставить заявку</a>
+          <ContactFlip featured={c.featured} />
         </div>
       ))}
     </div>
@@ -35,7 +36,7 @@ import { pricingCards, pricingExtra } from '../data/site';
       </div>
     </div>
 
-    <p class="note">Не знаете, какой тариф ваш? Оставьте заявку — бесплатно разберу учёт и назову точную цену.</p>
+    <p class="note">Не знаете, какой тариф ваш? Свяжитесь — бесплатно разберу учёт и назову точную цену.</p>
   </div>
 </section>
 
