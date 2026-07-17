@@ -51,12 +51,14 @@ export const hero = {
   secondaryCta: 'Посмотреть цены',
 };
 
-// Честные триггеры доверия вместо выдуманных «200+ клиентов».
+// Триггеры доверия в hero. Третий — рейтинг (пока не кликабельный;
+// когда будет ссылка на отзывы Авито/Яндекс — вставить в trustRatingHref).
 export const trustChips = [
-  { strong: `${brand.experienceYears} лет`, sub: 'практики в учёте и налогах' },
-  { strong: 'По договору', sub: 'финансовая гарантия за ошибки' },
-  { strong: 'Воинский учёт', sub: 'для ООО — под ключ' },
+  { type: 'check', strong: '6 лет', sub: 'на рынке' },
+  { type: 'check', strong: '600+', sub: 'довольных клиентов' },
+  { type: 'rating', rating: '4.9', stars: 5 },
 ];
+export const trustRatingHref = ''; // __PLACEHOLDER__ — ссылка на отзывы (Авито/Яндекс)
 
 // Услуги = будущие отдельные страницы под НЧ-запросы (см. struktura-sayta.md).
 export const services = [
