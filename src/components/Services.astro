@@ -106,21 +106,14 @@ const items = [
   /* ——— секция с карточками: «воздушный» фон (radial-gradients + blur + шум + виньетка) ——— */
   .allsvc-band {
     position: relative; overflow: hidden;
+    /* градиентный стек (подобран вручную) */
     background:
-      radial-gradient(130% 120% at 50% 22%, transparent 52%, rgba(55,65,90,.06) 100%), /* виньетка */
-      linear-gradient(160deg, #dbe1ea 0%, #e8ecf2 55%, #dfe4ed 100%);                   /* серо-голубая база, темнее */
-  }
-  /* белые засветы по трём углам (асимметрично, крупные) */
-  .allsvc-band::before {
-    content: ""; position: absolute; inset: -160px; z-index: 0; pointer-events: none;
-    background:
-      radial-gradient(46% 60% at 10% 2%,  rgba(255,255,255,1),   transparent 68%),  /* лево-верх, средний */
-      radial-gradient(58% 75% at 97% 0%,  rgba(255,255,255,1),   transparent 72%),  /* право-верх, большой */
-      radial-gradient(34% 44% at 100% 100%, rgba(255,255,255,.95), transparent 64%),/* право-низ, поменьше */
-      radial-gradient(40% 52% at 10% 105%, rgba(196,206,222,.6), transparent 66%);  /* лево-низ — серо-голубой */
-    filter: blur(46px);
-    animation: bgDrift 32s ease-in-out infinite alternate;
-    will-change: transform;
+      radial-gradient(60% 85% at 8% 12%,  rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 55%),
+      radial-gradient(72% 95% at 90% 14%, rgba(158,192,248,.20) 0%, rgba(158,192,248,0) 60%),
+      radial-gradient(68% 90% at 98% 92%, rgba(140,175,235,.15) 0%, rgba(140,175,235,0) 58%),
+      radial-gradient(66% 88% at 18% 92%, rgb(255 255 255 / 83%) 0%, rgba(140,205,242,0) 62%),
+      radial-gradient(55% 78% at 58% 48%, rgb(255 255 255 / 26%) 0%, rgba(196,186,246,0) 68%),
+      linear-gradient(331deg, #f4f8fe 0%, #ffffff5c 55%, #e6eefa 100%);
   }
   /* тонкий шум (SVG-turbulence, без внешней картинки) — «дорогой» вид */
   .allsvc-band::after {
