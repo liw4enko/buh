@@ -12,7 +12,6 @@ import { hero, trustChips, brand, contacts } from '../data/site';
 
       <div class="cta">
         <a href={contacts.phoneHref} class="btn"><Icon name="phone" size={19} stroke="#fff" width={2} />{hero.primaryCta}</a>
-        <a href="#ceny" class="btn btn-glass"><Icon name="doc" size={19} stroke="#2a3450" width={1.8} />{hero.secondaryCta}</a>
         <Messengers />
       </div>
 
@@ -70,7 +69,7 @@ import { hero, trustChips, brand, contacts } from '../data/site';
   h1 { font-weight: 800; font-size: clamp(30px, 3.7vw, 44px); line-height: 1.1; margin-bottom: 18px; }
   .sub { font-size: 18px; line-height: 1.55; color: var(--muted); margin: 0 0 28px; max-width: 560px; }
 
-  .cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; --msgr-size: 55px; }
   .cta .btn { padding: 15px 24px; }
   .btn-glass {
     background: rgba(255, 255, 255, .5);
