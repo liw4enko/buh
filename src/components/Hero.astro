@@ -86,6 +86,10 @@ const chipIcons = ['clock', 'shield', 'bars'];
   .txt { font-size: 13px; line-height: 1.25; color: var(--muted); }
   .txt b { color: var(--ink); font-size: 14px; }
 
+  /* на широких экранах кадр шире → лицо поднимается, компенсируем сдвигом вниз */
+  @media (min-width: 1500px) { .hero { background-position: 82% 32%; } }
+  @media (min-width: 1750px) { .hero { background-position: 82% 26%; } }
+
   @media (max-width: 760px) {
     .hero { background-position: 74% 30%; min-height: auto; }
     .scrim { background: linear-gradient(180deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,.75) 60%, rgba(255,255,255,.85) 100%); }
