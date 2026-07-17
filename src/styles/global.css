@@ -21,7 +21,7 @@
 
   --bg: #ffffff;
   --bg-soft: #f6f8fa;  /* серые секции */
-  --bg-green: #f1f5f2; /* зеленоватые секции */
+  --bg-green: #f6f8fa; /* фон секций (нейтральный серо-голубой) */
   --hero-scrim: #f7fafb;
 
   --danger-bg: #f6ecec;
