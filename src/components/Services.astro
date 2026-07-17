@@ -65,24 +65,26 @@ const items = [
 </section>
 
 <style>
-  .svcblock { position: relative; min-height: 340px; }
+  .svcblock { position: relative; min-height: 370px; }
 
   .svcintro { position: absolute; left: 0; top: 24px; width: 260px; z-index: 2; }
   .eyebrow2 { font-size: 14px; font-weight: 600; color: var(--ink); letter-spacing: .16em; margin-bottom: 18px; }
   .svch2 { font-weight: 800; font-size: clamp(34px, 4.2vw, 56px); line-height: .98; letter-spacing: -.03em; margin: 0 0 30px; }
 
-  .svcimg { position: absolute; left: 52%; top: 8px; width: 30%; max-width: 340px; height: auto; z-index: 1; pointer-events: none; }
+  .svcimg { position: absolute; left: 46%; top: 8px; width: 28%; max-width: 320px; height: auto; z-index: 1; pointer-events: none; }
 
   .svclbl { position: absolute; z-index: 2; }
   .svclbl .t { font-size: 13.5px; font-weight: 800; letter-spacing: .02em; color: var(--ink); margin-bottom: 5px; }
   .svclbl .d { font-size: 13px; line-height: 1.45; color: var(--muted); }
 
-  .lbl1 { left: 75%; top: 30px;  width: 23%; }
-  .lbl2 { left: 81%; top: 104px; width: 18%; }
-  .lbl3 { left: 80%; top: 184px; width: 19%; }
-  .lbl4 { left: 75%; top: 258px; width: 23%; }
-  .lbl5 { right: 48%; top: 168px; width: 21%; text-align: right; }
-  .lbl6 { right: 52%; top: 248px; width: 20%; text-align: right; }
+  /* правая колонка — единый левый край, равные интервалы */
+  .lbl1 { left: 76%; top: 34px;  width: 23%; }
+  .lbl2 { left: 76%; top: 122px; width: 23%; }
+  .lbl3 { left: 76%; top: 210px; width: 23%; }
+  .lbl4 { left: 76%; top: 298px; width: 23%; }
+  /* левая колонка — единый правый край */
+  .lbl5 { right: 55%; top: 150px; width: 21%; text-align: right; }
+  .lbl6 { right: 55%; top: 250px; width: 21%; text-align: right; }
 
   .svclist { display: none; flex-direction: column; gap: 24px; }
   .svclist .row { display: flex; gap: 15px; align-items: center; }
