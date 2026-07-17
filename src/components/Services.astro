@@ -50,6 +50,7 @@ const items = [
 
 <!-- Отдельная секция со своим фоном-градиентом — отделяет карточки от блока выше -->
 <section class="allsvc-band">
+  <span class="deco" aria-hidden="true"></span>
   <div class="wrap sec">
     <div class="allsvc-h">Все услуги по отдельности</div>
     <div class="grid">
@@ -102,46 +103,42 @@ const items = [
     .svclist { display: flex; }
   }
 
-  /* ——— секция с карточками: переливающийся фон ——— */
+  /* ——— секция с карточками: «воздушный» фон (radial-gradients + blur + шум + виньетка) ——— */
   .allsvc-band {
     position: relative; overflow: hidden;
-    background: linear-gradient(180deg, #eef1f5 0%, #e5e9ef 100%);
+    background:
+      radial-gradient(130% 120% at 50% 30%, transparent 58%, rgba(40,60,100,.045) 100%), /* виньетка */
+      linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);                                  /* лёгкий линейный */
   }
-  /* два слоя цветных пятен, перетекающих в противофазе → шиммер */
-  .allsvc-band::before,
-  .allsvc-band::after {
-    content: ""; position: absolute; inset: -30%; z-index: 0; pointer-events: none;
-    filter: blur(42px); will-change: transform;
-  }
+  /* большие голубоватые пятна + сильное размытие */
   .allsvc-band::before {
+    content: ""; position: absolute; inset: -200px; z-index: 0; pointer-events: none;
     background:
-      radial-gradient(42% 52% at 15% 20%, rgba(255,255,255,.85), transparent 60%),
-      radial-gradient(45% 52% at 85% 10%, rgba(208,215,225,.75), transparent 62%),
-      radial-gradient(50% 55% at 72% 90%, rgba(255,255,255,.7), transparent 60%),
-      radial-gradient(42% 50% at 5% 95%, rgba(198,206,218,.7), transparent 60%);
-    animation: shimmerA 20s ease-in-out infinite alternate;
+      radial-gradient(600px circle at 15% 20%, rgba(190,215,255,.40), transparent 70%),
+      radial-gradient(700px circle at 90% 80%, rgba(205,225,255,.36), transparent 70%),
+      radial-gradient(520px circle at 55% 98%, rgba(221,234,255,.30), transparent 70%),
+      radial-gradient(480px circle at 80% 12%, rgba(231,241,255,.34), transparent 72%);
+    filter: blur(80px);
+    animation: bgDrift 32s ease-in-out infinite alternate;
+    will-change: transform;
   }
+  /* тонкий шум (SVG-turbulence, без внешней картинки) — «дорогой» вид */
   .allsvc-band::after {
-    background:
-      radial-gradient(40% 48% at 62% 28%, rgba(255,255,255,.6), transparent 60%),
-      radial-gradient(46% 52% at 28% 72%, rgba(205,213,224,.7), transparent 62%),
-      radial-gradient(42% 50% at 95% 62%, rgba(255,255,255,.55), transparent 60%);
-    animation: shimmerB 27s ease-in-out infinite alternate;
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .04; mix-blend-mode: multiply;
   }
+  /* полупрозрачные концентрические окружности */
+  .deco { position: absolute; width: 720px; height: 720px; border-radius: 50%; right: -200px; bottom: -300px; z-index: 0; pointer-events: none; border: 1px solid rgba(70,140,255,.06); }
+  .deco::before { content: ""; position: absolute; inset: 60px; border-radius: 50%; border: 1px solid rgba(70,140,255,.05); }
+  .deco::after { content: ""; position: absolute; inset: 120px; border-radius: 50%; border: 1px solid rgba(70,140,255,.04); }
+
   .allsvc-band > .wrap { position: relative; z-index: 1; }
-  @keyframes shimmerA {
+  @keyframes bgDrift {
     0%   { transform: translate3d(0, 0, 0) scale(1); }
-    50%  { transform: translate3d(-4%, 3%, 0) scale(1.1) rotate(2deg); }
-    100% { transform: translate3d(4%, -3%, 0) scale(1.06) rotate(-1.5deg); }
+    100% { transform: translate3d(2.5%, -2%, 0) scale(1.06); }
   }
-  @keyframes shimmerB {
-    0%   { transform: translate3d(0, 0, 0) scale(1.05) rotate(-1deg); }
-    50%  { transform: translate3d(5%, -2%, 0) scale(1) rotate(1.5deg); }
-    100% { transform: translate3d(-4%, 3%, 0) scale(1.12) rotate(-2deg); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .allsvc-band::before, .allsvc-band::after { animation: none; }
-  }
+  @media (prefers-reduced-motion: reduce) { .allsvc-band::before { animation: none; } }
   .allsvc-h { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 28px; }
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
   .svc { padding: 26px; position: relative; box-shadow: var(--shadow-s); border-color: transparent; transition: transform .18s, box-shadow .18s; }
