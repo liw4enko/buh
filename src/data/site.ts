@@ -34,8 +34,7 @@ export const contacts = {
   whatsapp: 'https://wa.me/79877978588',
   // __PLACEHOLDER__ — реальная ссылка Telegram (username)
   telegram: 'https://t.me/username',
-  // __PLACEHOLDER__ — реальная ссылка на профиль в МАКС
-  maxLink: 'https://max.ru/',
+  maxLink: 'https://web.max.ru/83435081',
 };
 
 export const nav = [
