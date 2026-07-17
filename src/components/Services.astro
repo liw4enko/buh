@@ -1,48 +1,85 @@
 ---
 import Icon from './Icon.astro';
-import { services } from '../data/site';
+
+// Блок «Что беру на себя» — иллюстрация-схема + «плавающие» подписи вокруг неё
+// (повтор блока из исходного дизайна). На узких экранах — аккуратный список.
+const items = [
+  { icon: 'ip',      pos: 'lbl1', title: 'ВЕДЕНИЕ УЧЁТА ИП И ООО',           desc: 'Полный цикл бухгалтерии. Точно, вовремя, по стандартам.' },
+  { icon: 'report',  pos: 'lbl2', title: 'СДАЧА ОТЧЁТНОСТИ В ФНС, СФР',       desc: 'Гарантия сдачи вовремя. Без ошибок и штрафов.' },
+  { icon: 'restore', pos: 'lbl3', title: 'ВОССТАНОВЛЕНИЕ УЧЁТА',              desc: 'Исправление ошибок прошлых периодов, аудит.' },
+  { icon: 'envelope',pos: 'lbl4', title: 'СОПРОВОЖДЕНИЕ ПРОВЕРОК',            desc: 'Защита интересов, ответы на запросы налоговой.' },
+  { icon: 'audit',   pos: 'lbl5', title: 'РАСЧЁТ ЗАРПЛАТЫ И КАДРЫ',           desc: 'Учёт сотрудников, начисления, отпуска, больничные.' },
+  { icon: 'scales',  pos: 'lbl6', title: 'НАЛОГОВОЕ ПЛАНИРОВАНИЕ И ОПТИМИЗАЦИЯ', desc: 'Легальное снижение налоговой нагрузки, стратегии.' },
+];
 ---
 <section class="sec" id="uslugi">
   <div class="wrap">
-    <div class="head">
-      <div class="intro">
-        <div class="eyebrow">Услуги</div>
-        <h2 class="h2">Что я беру на&nbsp;себя</h2>
-        <p class="lead" style="margin-left:0">Полный круг задач — от разовой декларации до ведения бизнеса под ключ. Каждая услуга — отдельно или в составе обслуживания.</p>
-        <a href="#zayavka" class="btn" style="margin-top:24px">Бесплатная консультация</a>
+    <div class="svcblock">
+      <!-- интро -->
+      <div class="svcintro">
+        <div class="eyebrow2">УСЛУГИ</div>
+        <h2 class="svch2">Что я беру на&nbsp;себя</h2>
+        <a href="#zayavka" class="btn">Бесплатная консультация</a>
       </div>
-      <img class="flow" src="/assets/services-flow.png" alt="Схема бухгалтерских услуг" loading="lazy" width="340" height="360" />
-    </div>
 
-    <div class="grid">
-      {services.map((s) => (
-        <a class="card svc" href={s.href}>
-          <span class="ci"><Icon name={s.icon} size={24} stroke="#5fb094" width={1.6} /></span>
-          <h3>{s.title}</h3>
-          <p>{s.desc}</p>
-          <div class="price">{s.price}</div>
-          <span class="arrow">→</span>
-        </a>
+      <!-- иллюстрация -->
+      <img class="svcimg" src="/assets/services-flow.png" alt="Схема бухгалтерских услуг" loading="lazy" />
+
+      <!-- плавающие подписи (десктоп) -->
+      {items.map((it) => (
+        <div class={`svclbl ${it.pos}`}>
+          <div class="t">{it.title}</div>
+          <div class="d">{it.desc}</div>
+        </div>
       ))}
+
+      <!-- список (мобильные) -->
+      <div class="svclist">
+        {items.map((it) => (
+          <div class="row">
+            <span class="ic"><Icon name={it.icon} size={24} stroke="#5fb094" width={1.6} /></span>
+            <div>
+              <div class="t">{it.title}</div>
+              <div class="d">{it.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .head { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; margin-bottom: 44px; }
-  .intro { max-width: 520px; }
-  .flow { width: 300px; height: auto; }
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .svc { padding: 26px; position: relative; transition: transform .18s, box-shadow .18s, border-color .18s; }
-  .svc:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: transparent; }
-  .ci { width: 50px; height: 50px; border-radius: 12px; background: var(--green-100); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
-  .svc h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-  .svc p { font-size: 14.5px; color: var(--muted); margin: 0 0 16px; }
-  .price { font-weight: 700; color: var(--green-d); font-size: 15px; }
-  .arrow { position: absolute; right: 24px; top: 26px; color: var(--green); opacity: 0; transition: opacity .18s, right .18s; }
-  .svc:hover .arrow { opacity: 1; right: 20px; }
+  .svcblock { position: relative; min-height: 340px; }
 
-  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 900px) { .flow { display: none; } .head { grid-template-columns: 1fr; margin-bottom: 32px; } }
-  @media (max-width: 540px) { .grid { grid-template-columns: 1fr; } }
+  .svcintro { position: absolute; left: 0; top: 24px; width: 260px; z-index: 2; }
+  .eyebrow2 { font-size: 14px; font-weight: 600; color: var(--ink); letter-spacing: .16em; margin-bottom: 18px; }
+  .svch2 { font-weight: 800; font-size: clamp(34px, 4.2vw, 56px); line-height: .98; letter-spacing: -.03em; margin: 0 0 30px; }
+
+  .svcimg { position: absolute; left: 52%; top: 8px; width: 30%; max-width: 340px; height: auto; z-index: 1; pointer-events: none; }
+
+  .svclbl { position: absolute; z-index: 2; }
+  .svclbl .t { font-size: 13.5px; font-weight: 800; letter-spacing: .02em; color: var(--ink); margin-bottom: 5px; }
+  .svclbl .d { font-size: 13px; line-height: 1.45; color: var(--muted); }
+
+  .lbl1 { left: 75%; top: 30px;  width: 23%; }
+  .lbl2 { left: 81%; top: 104px; width: 18%; }
+  .lbl3 { left: 80%; top: 184px; width: 19%; }
+  .lbl4 { left: 75%; top: 258px; width: 23%; }
+  .lbl5 { right: 48%; top: 168px; width: 21%; text-align: right; }
+  .lbl6 { right: 52%; top: 248px; width: 20%; text-align: right; }
+
+  .svclist { display: none; flex-direction: column; gap: 24px; }
+  .svclist .row { display: flex; gap: 15px; }
+  .svclist .ic { flex: none; width: 52px; height: 52px; border-radius: 50%; background: #fff; border: 1.5px solid var(--green-200); display: flex; align-items: center; justify-content: center; }
+  .svclist .t { font-size: 15px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+  .svclist .d { font-size: 14px; line-height: 1.5; color: var(--muted); }
+
+  /* на узких экранах — прячем иллюстрацию и подписи, показываем список */
+  @media (max-width: 1040px) {
+    .svcblock { min-height: auto; }
+    .svcintro { position: static; width: auto; margin-bottom: 26px; }
+    .svcimg, .svclbl { display: none; }
+    .svclist { display: flex; }
+  }
 </style>
