@@ -3,6 +3,7 @@ import Icon from './Icon.astro';
 import { compare } from '../data/site';
 ---
 <section class="band">
+  <span class="deco" aria-hidden="true"></span>
   <div class="wrap sec">
     <div class="center">
       <div class="eyebrow">Выгода</div>
@@ -53,7 +54,28 @@ import { compare } from '../data/site';
 </section>
 
 <style>
-  .band { background: var(--bg-green); border-top: 1px solid var(--line); }
+  /* тот же воздушный градиент, отражённый по горизонтали (белое — в правом-верхнем) */
+  .band {
+    position: relative; overflow: hidden; border-top: 1px solid var(--line);
+    background:
+      radial-gradient(60% 85% at 92% 12%, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 55%),
+      radial-gradient(72% 95% at 10% 14%, rgba(158,192,248,.20) 0%, rgba(158,192,248,0) 60%),
+      radial-gradient(68% 90% at 2% 92%,  rgba(140,175,235,.15) 0%, rgba(140,175,235,0) 58%),
+      radial-gradient(66% 88% at 82% 92%, rgb(255 255 255 / 83%) 0%, rgba(140,205,242,0) 62%),
+      radial-gradient(55% 78% at 42% 48%, rgb(255 255 255 / 26%) 0%, rgba(196,186,246,0) 68%),
+      linear-gradient(29deg, #f4f8fe 0%, #ffffff5c 55%, #e6eefa 100%);
+  }
+  /* тонкий шум */
+  .band::after {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .04; mix-blend-mode: multiply;
+  }
+  /* концентрические окружности (зеркально — снизу-слева) */
+  .band > .deco { position: absolute; width: 720px; height: 720px; border-radius: 50%; left: -200px; bottom: -300px; z-index: 0; pointer-events: none; border: 1px solid rgba(70,140,255,.06); }
+  .band > .deco::before { content: ""; position: absolute; inset: 60px; border-radius: 50%; border: 1px solid rgba(70,140,255,.05); }
+  .band > .deco::after { content: ""; position: absolute; inset: 120px; border-radius: 50%; border: 1px solid rgba(70,140,255,.04); }
+  .band > .wrap { position: relative; z-index: 1; }
   .cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; margin-bottom: 28px; }
   .col { border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; background: #fff; }
   .col-win { border-color: var(--green); background: var(--green-100); position: relative; }
