@@ -25,7 +25,7 @@ import { hero, trustChips, brand } from '../data/site';
             </div>
           ) : (
             <div class="chip">
-              <span class="chk"><Icon name="check" size={15} stroke="#fff" width={2.6} /></span>
+              <span class="chk"><Icon name="check" size={21} stroke="#5fb094" width={2.4} /></span>
               <span class="txt"><b>{c.strong}</b><br />{c.sub}</span>
             </div>
           )
@@ -85,7 +85,7 @@ import { hero, trustChips, brand } from '../data/site';
   /* чипы без «стекла» — просто галочка + текст */
   .chips { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; margin-top: 28px; }
   .chip { display: flex; align-items: center; gap: 10px; }
-  .chk { width: 24px; height: 24px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; flex: none; }
+  .chk { display: flex; align-items: center; justify-content: center; flex: none; }
   .txt { font-size: 13px; line-height: 1.25; color: var(--muted); }
   .txt b { color: var(--ink); font-size: 14.5px; }
 
