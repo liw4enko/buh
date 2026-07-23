@@ -1,8 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// ВАЖНО: заменить на реальный домен перед публикацией (нужно для sitemap, canonical, OG).
-const SITE = 'https://buhgalter-orenburg.ru';
+const SITE = 'https://milabuh.ru';
 
 export default defineConfig({
   site: SITE,

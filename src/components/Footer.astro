@@ -11,11 +11,11 @@ const year = 2026;
           <span class="mark"><Icon name="logo" size={17} stroke="#fff" width={1.9} /></span>
           <span><b>{brand.name}</b><small>{brand.role}</small></span>
         </div>
-        <p>Бухгалтерское обслуживание ИП и ООО в {brand.region}. Работаю по договору с финансовой гарантией.</p>
+        <p>Бухгалтерское обслуживание ИП и ООО в Оренбурге и области.</p>
         <div class="msgr">
-          <a href={contacts.whatsapp} aria-label="WhatsApp" target="_blank" rel="noopener">WA</a>
-          <a href={contacts.telegram} aria-label="Telegram" target="_blank" rel="noopener">TG</a>
-          <a href={contacts.phoneHref} aria-label="Позвонить"><Icon name="phone" size={18} stroke="#fff" width={1.9}/></a>
+          <a class="m-max" href={contacts.maxLink} aria-label="Написать в МАКС" target="_blank" rel="noopener"><img src="/assets/max.svg" alt="МАКС" /></a>
+          <a class="m-tg" href={contacts.telegram} aria-label="Написать в Telegram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M23.91 3.79L20.3 20.84c-.25 1.21-.98 1.5-2 .94l-5.5-4.07-2.66 2.57c-.3.3-.55.56-1.1.56l.4-5.62 10.24-9.25c.44-.39-.1-.61-.69-.22L6.35 13.4l-5.42-1.7c-1.18-.36-1.2-1.17.25-1.73L22.4 2.34c.98-.36 1.84.22 1.51 1.45z"/></svg></a>
+          <a class="m-phone" href={contacts.phoneHref} aria-label="Позвонить"><Icon name="phone" size={18} stroke="#fff" width={1.9}/></a>
         </div>
       </div>
 
@@ -38,8 +38,8 @@ const year = 2026;
     </div>
 
     <div class="bottom">
-      <span>© {year} {brand.name}. Бухгалтерские услуги в {brand.city}.</span>
-      <a href="#">Политика конфиденциальности</a>
+      <span>© {year} {brand.name}. Бухгалтерские услуги в Оренбурге.</span>
+      <a href="/politika-konfidencialnosti/">Политика конфиденциальности</a>
     </div>
   </div>
 </footer>
@@ -56,8 +56,13 @@ const year = 2026;
   .links { display: flex; flex-direction: column; gap: 9px; font-size: 15px; }
   .links a:hover { color: #fff; }
   .msgr { display: flex; gap: 10px; }
-  .msgr a { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; }
-  .msgr a:hover { background: var(--green); }
+  .msgr a { width: 40px; height: 40px; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: transform .15s; }
+  .msgr a:hover { transform: translateY(-2px); }
+  .m-max { background: transparent; }
+  .m-max img { width: 100%; height: 100%; display: block; }
+  .m-tg { background: linear-gradient(180deg, #2AABEE, #229ED9); }
+  .m-tg svg { width: 22px; height: 22px; }
+  .m-phone { background: var(--green); }
   .bottom { padding-top: 22px; font-size: 13px; color: #8ba0ba; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
   @media (max-width: 820px) { .grid { grid-template-columns: 1fr; gap: 28px; } }
 </style>

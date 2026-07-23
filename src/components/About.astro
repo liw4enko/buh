@@ -5,30 +5,23 @@ import { brand } from '../data/site';
 <section class="sec" id="obo-mne">
   <div class="wrap grid">
     <div class="photo">
-      <!-- __PLACEHOLDER__ — заменить на реальное фото (портрет / за работой). -->
-      <div class="ph" aria-label="Фото бухгалтера">
-        <svg viewBox="0 0 400 500" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <rect width="400" height="500" fill="#dfeef0"/>
-          <circle cx="200" cy="185" r="78" fill="#c6e0df"/>
-          <path d="M70 500c0-78 58-132 130-132s130 54 130 132z" fill="#c6e0df"/>
-          <text x="200" y="470" text-anchor="middle" fill="#6f9997" font-family="Onest, sans-serif" font-size="15" font-weight="600">фото · заглушка</text>
-        </svg>
+      <div class="ph">
+        <img src="/assets/about.jpg" alt={`Бухгалтер ${brand.name}, ${brand.city}`} width="900" height="1125" loading="lazy" />
       </div>
       <div class="badge b1"><span class="bi" style="background:var(--green)"><Icon name="clock" size={18} stroke="#fff"/></span><span><b>{brand.experienceYears} лет</b><small>практики</small></span></div>
-      <div class="badge b2"><span class="bi" style="background:var(--ink)"><Icon name="shield" size={18} stroke="#fff"/></span><span><b>По договору</b><small>с гарантией</small></span></div>
     </div>
 
     <div class="txt">
       <div class="eyebrow">Обо мне</div>
       <h2 class="h2" style="margin-bottom:16px">Частный бухгалтер, которому можно передать всё</h2>
-      <p>Меня зовут {brand.name}. {brand.experienceYears} лет в бухгалтерии и налогах. Веду ИП и ООО на аутсорсе полностью удалённо по {brand.region.toLowerCase()} — вы занимаетесь бизнесом, а отчётность, налоги и общение с ФНС на мне.</p>
+      <p>Меня зовут {brand.name}. {brand.experienceYears} лет в бухгалтерии и налогах. Веду ИП и ООО на аутсорсе полностью удалённо по Оренбургу и области — вы занимаетесь бизнесом, а отчётность, налоги и общение с ФНС на мне.</p>
       <p>Объясняю простым языком, без «бухгалтерского»: вы понимаете, за что и сколько платите. Слежу за изменениями в законах и предупреждаю о сроках заранее, а не постфактум.</p>
 
       <div class="guar">
         <span class="gi"><Icon name="shield" size={26} stroke="#fff"/></span>
         <div>
-          <b>Работаю по договору с финансовой гарантией</b>
-          <span>Если из-за моей ошибки прилетит штраф или пени — компенсирую сама. Ваши данные остаются конфиденциальными.</span>
+          <b>Работаю официально по договору</b>
+          <span>Ваши данные остаются конфиденциальными.</span>
         </div>
       </div>
 
@@ -41,6 +34,7 @@ import { brand } from '../data/site';
   .grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: center; }
   .photo { position: relative; max-width: 380px; }
   .ph { border-radius: 20px; overflow: hidden; aspect-ratio: 4/5; box-shadow: var(--shadow); background: #dfeef0; }
+  .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block; }
   .badge { position: absolute; background: #fff; border-radius: 14px; box-shadow: var(--shadow); padding: 11px 14px; display: flex; align-items: center; gap: 10px; font-size: 14px; }
   .badge b { display: block; font-weight: 700; }
   .badge small { color: var(--muted); font-size: 12px; }

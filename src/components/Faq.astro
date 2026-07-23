@@ -9,9 +9,9 @@ import { faq } from '../data/site';
     </div>
     <div class="list">
       {faq.map((f, i) => (
-        <details open={i === 0}>
+        <details name="faq">
           <summary>{f.q}</summary>
-          <p>{f.a}</p>
+          <p set:html={f.a}></p>
         </details>
       ))}
     </div>
@@ -28,4 +28,6 @@ import { faq } from '../data/site';
   summary::after { content: "+"; font-size: 26px; font-weight: 400; color: var(--green); line-height: 1; flex: none; }
   details[open] summary::after { content: "–"; }
   details p { margin: 0; padding: 0 26px 22px; font-size: 16px; line-height: 1.6; color: var(--muted); }
+  details p a { color: var(--green-d); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+  details p a:hover { color: var(--green); }
 </style>

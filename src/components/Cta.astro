@@ -19,12 +19,23 @@ import { cta, contacts } from '../data/site';
         3) Astro API-route (нужен SSR-адаптер)
         Сейчас — демо: JS показывает «отправлено» без реальной отправки.
       -->
-      <form class="form" id="leadForm" novalidate>
-        <input name="name" placeholder="Ваше имя" required />
-        <input name="phone" placeholder="Телефон или мессенджер" required />
-        <textarea name="task" rows="2" placeholder="Кратко о задаче (необязательно)"></textarea>
-        <button type="submit" class="btn">Отправить заявку</button>
-        <span class="priv">Нажимая, вы соглашаетесь на обработку персональных данных</span>
+      <form class="form" id="leadForm" novalidate data-phone={contacts.phone}>
+        <div class="field">
+          <input name="name" id="lfName" placeholder="Ваше имя" required maxlength="60" autocomplete="name" />
+          <span class="err" data-for="name"></span>
+        </div>
+        <div class="field">
+          <input name="phone" id="lfPhone" placeholder="Телефон или мессенджер" required inputmode="tel" autocomplete="tel" />
+          <span class="err" data-for="phone"></span>
+        </div>
+        <div class="field">
+          <textarea name="task" id="lfTask" rows="2" maxlength="1000" placeholder="Кратко о задаче (необязательно)"></textarea>
+        </div>
+        <!-- honeypot от ботов: реальные люди это поле не видят и не заполняют -->
+        <input type="text" name="website" id="lfHp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit" class="btn" id="lfSubmit">Отправить заявку</button>
+        <span class="err form-err" id="lfFormErr"></span>
+        <span class="priv">Нажимая, вы соглашаетесь на <a href="/politika-konfidencialnosti/" target="_blank" rel="noopener">обработку персональных данных</a></span>
       </form>
 
       <div class="done" id="leadDone" hidden>
@@ -36,14 +47,106 @@ import { cta, contacts } from '../data/site';
 </section>
 
 <script is:inline>
-  const f = document.getElementById('leadForm');
-  if (f) f.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!f.checkValidity()) { f.reportValidity(); return; }
-    // TODO: заменить на реальную отправку (Formspree / Telegram / API-route)
-    f.hidden = true;
-    document.getElementById('leadDone').hidden = false;
-  });
+  (function () {
+    const f = document.getElementById('leadForm');
+    if (!f) return;
+    const nameEl = document.getElementById('lfName');
+    const phoneEl = document.getElementById('lfPhone');
+
+    // контакт похож на мессенджер, а не на телефон?
+    function isMessenger(v) {
+      return /@/.test(v) || /[a-zA-Zа-яА-ЯёЁ]/.test(v) || /t\.me|wa\.me|http|vk\.com/i.test(v);
+    }
+    // маска РФ: +7 (999) 123-45-67
+    function formatRuPhone(v) {
+      let d = v.replace(/\D/g, '');
+      if (d.startsWith('8')) d = '7' + d.slice(1);
+      if (d && !d.startsWith('7')) d = '7' + d;
+      d = d.slice(0, 11);
+      const r = d.slice(1);
+      let out = '+7';
+      if (r.length) out += ' (' + r.slice(0, 3);
+      if (r.length >= 3) out += ') ' + r.slice(3, 6);
+      if (r.length >= 6) out += '-' + r.slice(6, 8);
+      if (r.length >= 8) out += '-' + r.slice(8, 10);
+      return out;
+    }
+    phoneEl.addEventListener('input', function () {
+      const v = phoneEl.value;
+      if (isMessenger(v)) return; // мессенджер — не форматируем
+      phoneEl.value = formatRuPhone(v);
+    });
+
+    function setErr(el, msg) {
+      const box = f.querySelector('.err[data-for="' + el.name + '"]');
+      if (box) box.textContent = msg || '';
+      el.classList.toggle('invalid', !!msg);
+      el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    }
+    function checkName() {
+      const v = nameEl.value.trim();
+      if (v.length < 2 || !/^[А-Яа-яЁёA-Za-z][А-Яа-яЁёA-Za-z\s.\-]*$/.test(v)) {
+        setErr(nameEl, 'Введите имя (только буквы)'); return false;
+      }
+      setErr(nameEl, ''); return true;
+    }
+    function checkContact() {
+      const v = phoneEl.value.trim();
+      if (!v) { setErr(phoneEl, 'Укажите телефон или мессенджер'); return false; }
+      if (isMessenger(v)) {
+        if (v.replace(/^@/, '').length < 3) { setErr(phoneEl, 'Слишком короткий контакт'); return false; }
+      } else {
+        if (v.replace(/\D/g, '').length !== 11) { setErr(phoneEl, 'Введите номер полностью'); return false; }
+      }
+      setErr(phoneEl, ''); return true;
+    }
+    nameEl.addEventListener('blur', checkName);
+    phoneEl.addEventListener('blur', checkContact);
+    nameEl.addEventListener('input', function () { if (nameEl.classList.contains('invalid')) checkName(); });
+    phoneEl.addEventListener('input', function () { if (phoneEl.classList.contains('invalid')) checkContact(); });
+
+    const btn = document.getElementById('lfSubmit');
+    const formErr = document.getElementById('lfFormErr');
+
+    function showDone() {
+      f.hidden = true;
+      document.getElementById('leadDone').hidden = false;
+    }
+    function fail(msg) {
+      formErr.textContent = msg || ('Не удалось отправить. Позвоните: ' + (f.dataset.phone || ''));
+      btn.disabled = false;
+      btn.textContent = 'Отправить заявку';
+    }
+
+    f.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      formErr.textContent = '';
+      const ok = [checkName(), checkContact()].every(Boolean);
+      if (!ok) return;
+
+      // Локально (dev-сервер без PHP) — показываем demo-успех без реальной отправки.
+      const isLocal = /^(localhost|127\.|0\.0\.0\.0|\[?::1)/.test(location.hostname);
+      if (isLocal) { showDone(); return; }
+
+      btn.disabled = true;
+      btn.textContent = 'Отправляю…';
+      try {
+        const res = await fetch('/send.php', { method: 'POST', body: new FormData(f) });
+        const data = await res.json().catch(function () { return null; });
+        if (res.ok && data && data.ok) {
+          showDone();
+        } else if (data && data.errors) {
+          if (data.errors.name) setErr(nameEl, data.errors.name);
+          if (data.errors.phone) setErr(phoneEl, data.errors.phone);
+          fail('Проверьте поля и попробуйте ещё раз.');
+        } else {
+          fail();
+        }
+      } catch (err) {
+        fail();
+      }
+    });
+  })();
 </script>
 
 <style>
@@ -53,9 +156,19 @@ import { cta, contacts } from '../data/site';
   .dot { width: 9px; height: 9px; border-radius: 50%; background: #5fb094; flex: none; }
 
   .form { display: flex; flex-direction: column; gap: 13px; }
-  .form input, .form textarea { border: none; background: rgba(255,255,255,.1); border-radius: 11px; padding: 16px 18px; font-size: 16px; color: #fff; outline: none; resize: vertical; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .form input, .form textarea { border: none; background: rgba(255,255,255,.1); border-radius: 11px; padding: 16px 18px; font-size: 16px; color: #fff; outline: none; resize: vertical; width: 100%; box-sizing: border-box; }
+  .form input::placeholder, .form textarea::placeholder { color: #9aa4bd; }
   .form input:focus, .form textarea:focus { background: rgba(255,255,255,.16); }
+  .form input.invalid, .form textarea.invalid { box-shadow: inset 0 0 0 1.5px rgba(255,120,130,.75); background: rgba(255,120,130,.08); }
+  .err { font-size: 12.5px; color: #ff9ba6; padding-left: 4px; }
+  .err:empty { display: none; }
+  .form-err { text-align: center; padding: 0; }
+  .hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+  .btn:disabled { opacity: .7; cursor: default; }
   .priv { font-size: 13px; color: #8e98b0; text-align: center; }
+  .priv a { color: #b3bccf; text-decoration: underline; text-underline-offset: 2px; }
+  .priv a:hover { color: #fff; }
 
   .done { background: rgba(95,176,148,.18); border: 1px solid rgba(95,176,148,.5); border-radius: 16px; padding: 40px; text-align: center; }
   .ok { font-size: 22px; font-weight: 700; color: #9fe0c5; margin-bottom: 8px; }

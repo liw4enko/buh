@@ -1,29 +1,91 @@
 ---
 import '../styles/global.css';
-import { brand, contacts, seo } from '../data/site';
+import { brand, contacts, legal, seo, services, faq } from '../data/site';
 
-interface Props { title?: string; description?: string; }
-const { title = seo.title, description = seo.description } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
+interface Props { title?: string; description?: string; noindex?: boolean; ogImage?: string; }
+const { title = seo.title, description = seo.description, noindex = false, ogImage } = Astro.props;
 
-// schema.org — LocalBusiness/Accountant. Питает Яндекс Бизнес и локальную выдачу.
+const site = Astro.site ?? new URL('https://buhgalter-orenburg.ru');
+const canonical = new URL(Astro.url.pathname, site).href;
+const imageUrl = new URL(ogImage ?? '/assets/og.jpg', site).href;
+const photoUrl = new URL('/assets/about.jpg', site).href;
+const businessId = `${site.origin}/#business`;
+const personId = `${site.origin}/#person`;
+
+// Реальные соцпрофили (плейсхолдеры отфильтровываем, чтобы не попали в schema).
+const sameAs = [contacts.maxLink, contacts.telegram, contacts.whatsapp]
+  .filter((u) => u && !u.includes('t.me/username') && !u.includes('example'));
+
+const stripHtml = (s: string) => s.replace(/<[^>]+>/g, '');
+
+// schema.org @graph: бизнес (LocalBusiness/AccountingService) + персона + сайт + FAQ.
 const schema = {
   '@context': 'https://schema.org',
-  '@type': 'Accountant',
-  name: brand.name,
-  description,
-  areaServed: brand.region,
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: brand.city,
-    streetAddress: contacts.address,
-    addressCountry: 'RU',
-  },
-  telephone: contacts.phone,
-  email: contacts.email,
-  priceRange: 'от 700 ₽',
-  openingHours: 'Mo-Fr 09:00-18:00',
-  url: canonical,
+  '@graph': [
+    {
+      '@type': ['AccountingService', 'LocalBusiness'],
+      '@id': businessId,
+      name: `${brand.name} — бухгалтер в ${brand.city}`,
+      description,
+      url: `${site.origin}/`,
+      image: imageUrl,
+      logo: `${site.origin}/favicon.svg`,
+      telephone: contacts.phoneHref.replace('tel:', ''),
+      email: contacts.email,
+      priceRange: '₽₽',
+      currenciesAccepted: 'RUB',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: contacts.address,
+        addressLocality: brand.city,
+        addressRegion: 'Оренбургская область',
+        addressCountry: 'RU',
+      },
+      geo: { '@type': 'GeoCoordinates', latitude: legal.geo.lat, longitude: legal.geo.lng },
+      areaServed: [
+        { '@type': 'City', name: 'Оренбург' },
+        { '@type': 'AdministrativeArea', name: 'Оренбургская область' },
+      ],
+      openingHoursSpecification: [{
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '09:00', closes: '18:00',
+      }],
+      founder: { '@id': personId },
+      makesOffer: services.map((s) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: s.title, description: s.desc },
+      })),
+      ...(sameAs.length ? { sameAs } : {}),
+    },
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: brand.name,
+      jobTitle: 'Бухгалтер',
+      image: photoUrl,
+      worksFor: { '@id': businessId },
+      address: { '@type': 'PostalAddress', addressLocality: brand.city, addressCountry: 'RU' },
+      knowsAbout: ['Бухгалтерский учёт', 'Налоги', 'Отчётность ИП и ООО', 'Маркетплейсы', 'Зарплата и кадры'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site.origin}/#website`,
+      url: `${site.origin}/`,
+      name: brand.name,
+      inLanguage: 'ru-RU',
+      publisher: { '@id': businessId },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: faq.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: stripHtml(f.a) },
+      })),
+    },
+  ],
 };
 ---
 <!doctype html>
@@ -34,12 +96,35 @@ const schema = {
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  {noindex
+    ? <meta name="robots" content="noindex, nofollow" />
+    : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />}
+  <meta name="theme-color" content="#2a3450" />
+  <meta name="author" content={brand.name} />
 
+  <!-- Geo-теги для локального поиска -->
+  <meta name="geo.region" content="RU-ORE" />
+  <meta name="geo.placename" content={brand.city} />
+  <meta name="geo.position" content={`${legal.geo.lat};${legal.geo.lng}`} />
+  <meta name="ICBM" content={`${legal.geo.lat}, ${legal.geo.lng}`} />
+
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:locale" content="ru_RU" />
   <meta property="og:url" content={canonical} />
+  <meta property="og:site_name" content={brand.name} />
+  <meta property="og:image" content={imageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={`${brand.name} — ${brand.role}`} />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={imageUrl} />
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 

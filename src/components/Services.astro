@@ -1,6 +1,19 @@
 ---
 import Icon from './Icon.astro';
 import { services } from '../data/site';
+
+// Мягкие акценты по категориям: [акцент (рамка), заливка карточки, тёмный тон (иконка/цена)]
+const accents = [
+  ['#3f9d78', '#ecf6f0', '#2c7357'], // ИП — зелёный
+  ['#4f86d6', '#eaf1fb', '#2c62b0'], // ООО — синий
+  ['#c98a2e', '#faf1e0', '#976413'], // маркетплейсы — тёплый янтарь
+  ['#2fa79a', '#e6f4f1', '#1c7a70'], // отчётность — бирюза
+  ['#3f9bc0', '#e8f3f9', '#2a749b'], // нулёвка — голубой
+  ['#7c6fd6', '#efecfb', '#5647b3'], // восстановление — фиолетовый
+  ['#d06a83', '#fbeaef', '#b0435f'], // зарплата/кадры — розовый
+  ['#6570cc', '#eceefb', '#414db0'], // регистрация — индиго
+  ['#4a9d6e', '#eaf4ee', '#34784f'], // 3-НДФЛ — зелёный
+];
 ---
 <!-- Секция «Все услуги по отдельности» — карточки на воздушном фоне -->
 <section class="allsvc-band" id="uslugi">
@@ -8,15 +21,18 @@ import { services } from '../data/site';
   <div class="wrap sec">
     <div class="allsvc-h">Все услуги по отдельности</div>
     <div class="grid">
-      {services.map((s) => (
-        <a class="card svc" href={s.href}>
-          <span class="ci"><Icon name={s.icon} size={24} stroke="#5fb094" width={1.6} /></span>
-          <h3>{s.title}</h3>
-          <p>{s.desc}</p>
-          <div class="price">{s.price}</div>
-          <span class="arrow">→</span>
-        </a>
-      ))}
+      {services.map((s, i) => {
+        const [acc, tint, ink] = accents[i % accents.length];
+        return (
+          <a class="card svc" href={s.href} style={`--acc:${acc};--tint:${tint};--accd:${ink}`}>
+            <span class="ci"><Icon name={s.icon} size={24} stroke={ink} width={1.85} /></span>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+            <div class="price">{s.price}</div>
+            <span class="arrow">→</span>
+          </a>
+        );
+      })}
     </div>
   </div>
 </section>
@@ -46,15 +62,26 @@ import { services } from '../data/site';
 
   .allsvc-band > .wrap { position: relative; z-index: 1; }
   .allsvc-h { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 28px; }
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .svc { padding: 26px; position: relative; box-shadow: var(--shadow-s); border-color: transparent; transition: transform .18s, box-shadow .18s; }
-  .svc:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-  /* органичная «блоб»-форма вместо квадрата */
-  .ci { width: 54px; height: 54px; border-radius: 42% 58% 63% 37% / 45% 44% 56% 55%; background: var(--green-100); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
-  .svc h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  /* карточка: мягкая цветная заливка + тонкая цветная рамка в тон */
+  .svc {
+    padding: 26px; position: relative; border-radius: 18px;
+    background: var(--tint);
+    border: 1px solid color-mix(in srgb, var(--acc) 22%, transparent);
+    box-shadow: 0 1px 2px rgba(20,40,80,.04);
+    transition: transform .18s, box-shadow .18s;
+  }
+  .svc:hover { transform: translateY(-3px); box-shadow: 0 14px 30px color-mix(in srgb, var(--acc) 22%, transparent); }
+  /* органичная «блоб»-форма, заливка в тон акценту */
+  .ci {
+    width: 54px; height: 54px; border-radius: 42% 58% 63% 37% / 45% 44% 56% 55%;
+    background: color-mix(in srgb, var(--acc) 26%, #fff);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  }
+  .svc h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
   .svc p { font-size: 14.5px; color: var(--muted); margin: 0 0 16px; }
-  .price { font-weight: 700; color: var(--green-d); font-size: 15px; }
-  .arrow { position: absolute; right: 24px; top: 26px; color: var(--green); opacity: 0; transition: opacity .18s, right .18s; }
+  .price { font-weight: 700; color: var(--accd); font-size: 15px; }
+  .arrow { position: absolute; right: 24px; top: 26px; color: var(--accd); opacity: 0; transition: opacity .18s, right .18s; }
   .svc:hover .arrow { opacity: 1; right: 20px; }
 
   @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
