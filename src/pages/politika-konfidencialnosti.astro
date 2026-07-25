@@ -5,14 +5,14 @@ import Footer from '../components/Footer.astro';
 import { brand, contacts, legal } from '../data/site';
 
 const pageTitle = `Политика конфиденциальности — ${brand.name}`;
-const pageDesc = `Политика в отношении обработки персональных данных на сайте ${brand.name}. Какие данные собираются через форму заявки, цели и сроки обработки, права пользователя.`;
+const pageDesc = `Политика в отношении обработки персональных данных на сайте ${legal.domain}. Какие данные собираются через форму заявки, цели и сроки обработки, права пользователя.`;
 ---
 <Base title={pageTitle} description={pageDesc} noindex={true}>
   <header class="legal-top">
     <div class="wrap bar">
       <a class="logo" href="/">
         <span class="mark"><Icon name="logo" size={17} stroke="#2a3450" width={1.9} /></span>
-        <span><b>{brand.name}</b><small>{brand.role}</small></span>
+        <span><b>{brand.nameShort}</b><small>{brand.role}</small></span>
       </a>
       <a class="back" href="/">← На главную</a>
     </div>

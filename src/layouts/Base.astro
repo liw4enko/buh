@@ -25,7 +25,9 @@ const schema = {
     {
       '@type': ['AccountingService', 'LocalBusiness'],
       '@id': businessId,
-      name: `${brand.name} — бухгалтер в ${brand.city}`,
+      name: brand.name,
+      alternateName: [brand.nameShort, `${brand.name} ${brand.city}`],
+      legalName: legal.operatorShort,
       description,
       url: `${site.origin}/`,
       image: imageUrl,
@@ -61,7 +63,7 @@ const schema = {
     {
       '@type': 'Person',
       '@id': personId,
-      name: brand.name,
+      name: brand.person,
       jobTitle: 'Бухгалтер',
       image: photoUrl,
       worksFor: { '@id': businessId },
@@ -100,7 +102,7 @@ const schema = {
     ? <meta name="robots" content="noindex, nofollow" />
     : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />}
   <meta name="theme-color" content="#2a3450" />
-  <meta name="author" content={brand.name} />
+  <meta name="author" content={brand.person} />
 
   <!-- Geo-теги для локального поиска -->
   <meta name="geo.region" content="RU-ORE" />
