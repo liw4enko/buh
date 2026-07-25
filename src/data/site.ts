@@ -31,8 +31,8 @@ export const contacts = {
   address: 'г. Оренбург, ул. Туркестанская, 5, офис 707Б',
   hours: 'Пн–Пт, 9:00–18:00',
   whatsapp: 'https://wa.me/79877978588',
-  // __PLACEHOLDER__ — реальная ссылка Telegram (username)
-  telegram: 'https://t.me/username',
+  // Telegram по номеру. Если появится @username — заменить на https://t.me/username
+  telegram: 'https://t.me/+79877978588',
   maxLink: 'https://web.max.ru/83435081',
 };
 
