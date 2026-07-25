@@ -5,6 +5,9 @@ import { hero, trustChips, brand, contacts } from '../data/site';
 ---
 <section class="hero" aria-label="Главный экран">
   <div class="scrim"></div>
+  <!-- Фото во всю ширину — планшет и мобильные (на десктопе фото в фоне секции) -->
+  <div class="hero-photo" role="img" aria-label={`Бухгалтер ${brand.person}, ${brand.city}`}></div>
+
   <div class="wrap content">
     <div class="card glass">
       <h1>{hero.h1}</h1>
@@ -66,6 +69,7 @@ import { hero, trustChips, brand, contacts } from '../data/site';
     box-shadow: 0 24px 64px rgba(42, 52, 80, .14);
   }
   .card { max-width: 660px; border-radius: 30px; padding: 44px; }
+  .hero-photo { display: none; }
 
   h1 { font-weight: 800; font-size: clamp(30px, 3.7vw, 44px); line-height: 1.1; margin-bottom: 18px; }
   .sub { font-size: 18px; line-height: 1.55; color: var(--muted); margin: 0 0 28px; max-width: 560px; }
@@ -103,12 +107,63 @@ import { hero, trustChips, brand, contacts } from '../data/site';
   @media (min-width: 1500px) { .hero { background-position: 82% 32%; } }
   @media (min-width: 1750px) { .hero { background-position: 82% 26%; } }
 
+  /* ——— планшет и мобильные: фото во всю ширину сверху, под ним стеклянная карточка ——— */
+  @media (max-width: 1024px) {
+    .hero {
+      background-image: none; background: #fff; min-height: auto;
+      padding-top: 0;
+    }
+    .scrim { display: none; }
+
+    /* Фото от самого верха страницы — шапка «плавает» поверх кадра, как на десктопе.
+       background-size: auto 115% (а не cover) даёт крупный план и возвращает работоспособность
+       background-position-y: при cover кадр вписывается по высоте ровно и сдвиг по Y не работает. */
+    .hero-photo {
+      display: block; width: 100%;
+      height: clamp(430px, 66vw, 620px);
+      background-image:
+        /* лёгкая дымка сверху — чтобы текст шапки читался поверх кадра */
+        linear-gradient(180deg, rgba(255,255,255,.5) 0, rgba(255,255,255,0) 120px),
+        linear-gradient(180deg, rgba(255,255,255,0) 62%, rgba(255,255,255,.45) 100%),
+        url('/assets/hero.jpg');
+      background-repeat: no-repeat;
+      background-size: auto, auto, auto 115%;
+      background-position: center top, center top, 88% 0;
+      background-color: #eef2f6;
+    }
+
+    /* карточка наезжает на низ фото — стекло реально размывает кадр под собой */
+    .content {
+      display: block; position: relative; z-index: 2;
+      min-height: 0; margin-top: -40px;
+      padding-top: 0; padding-bottom: 44px;
+    }
+    .card { max-width: none; border-radius: 26px; padding: 30px 26px; }
+  }
+
   @media (max-width: 760px) {
-    .hero { background-position: 74% 30%; min-height: auto; }
-    .scrim { background: linear-gradient(180deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,.75) 60%, rgba(255,255,255,.85) 100%); }
-    .content { padding-bottom: 48px; }
-    .card { padding: 28px 22px; }
-    .chips { grid-template-columns: 1fr; }
+    .hero-photo {
+      height: clamp(380px, 98vw, 520px);
+      background-size: auto, auto, auto 118%;
+      background-position: center top, center top, 86% 0;
+    }
+    .content { margin-top: -34px; padding-bottom: 38px; }
+    .card { border-radius: 24px; padding: 24px 20px; }
+
+    h1 { font-size: clamp(26px, 7.4vw, 33px); margin-bottom: 14px; }
+    .sub { font-size: 15.5px; margin-bottom: 22px; }
+
+    .cta { --msgr-size: 50px; gap: 10px; }
+    .cta .btn { padding: 14px 22px; }
+    .write { height: 50px; }
+
+    .chips { gap: 14px 20px; margin-top: 24px; }
     .chip { max-width: none; }
+  }
+
+  @media (max-width: 380px) {
+    .chips { gap: 12px 14px; }
+    .txt { font-size: 12.5px; }
+    .txt b { font-size: 13.5px; }
   }
 </style>

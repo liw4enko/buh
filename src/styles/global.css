@@ -85,7 +85,12 @@ h1, h2, h3 { margin: 0; letter-spacing: -.02em; }
 .card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
 
 /* ——— responsive ——— */
+/* На планшетах и телефонах поля сужаем: блоки (шапка, карточки) становятся шире,
+   зазор до края экрана меньше. */
+@media (max-width: 1024px) { :root { --pad: 20px; } }
 @media (max-width: 900px) {
-  :root { --pad: 24px; }
+  :root { --pad: 16px; }
   .sec { padding-top: 56px; padding-bottom: 56px; }
 }
+@media (max-width: 760px) { :root { --pad: 14px; } }
+@media (max-width: 400px) { :root { --pad: 11px; } }
