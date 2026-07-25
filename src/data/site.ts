@@ -33,7 +33,8 @@ export const contacts = {
   whatsapp: 'https://wa.me/79877978588',
   // Telegram по номеру. Если появится @username — заменить на https://t.me/username
   telegram: 'https://t.me/+79877978588',
-  maxLink: 'https://web.max.ru/83435081',
+  // Публичная ссылка на профиль в МАКС (из приложения: аватар → QR → «Поделиться»)
+  maxLink: 'https://max.ru/u/f9LHodD0cOKLFyjVktrUcGrhxV2WI0uSLFTmNq8-dvS2tjAu3KbjAYBsdtc',
 };
 
 // Юридические реквизиты для политики конфиденциальности и schema.org.
