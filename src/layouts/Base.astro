@@ -26,7 +26,7 @@ const schema = {
       '@type': ['AccountingService', 'LocalBusiness'],
       '@id': businessId,
       name: brand.name,
-      alternateName: [brand.nameShort, `${brand.name} ${brand.city}`],
+      alternateName: [`${brand.name} ${brand.city}`],
       legalName: legal.operatorShort,
       description,
       url: `${site.origin}/`,
