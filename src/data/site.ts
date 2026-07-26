@@ -51,6 +51,22 @@ export const legal = {
   geo: { lat: '51.768199', lng: '55.096955' },
 };
 
+/* Веб-аналитика. Счётчик подключается ТОЛЬКО в production-сборке и только на домене
+   analytics.host — локальная разработка и тестовые прогоны не портят статистику.
+   Цели заводятся в Метрике как «JavaScript-событие» с идентификаторами из goals. */
+export const analytics = {
+  metrikaId: 111042035,
+  host: 'milabuh.ru',
+  goals: {
+    call: 'call',           // клик по номеру телефона
+    telegram: 'telegram',   // клик по Telegram
+    max: 'max',             // клик по MAX
+    whatsapp: 'whatsapp',   // клик по WhatsApp
+    email: 'email',         // клик по e-mail
+    lead: 'lead',           // успешная отправка формы заявки
+  },
+};
+
 export const nav = [
   { label: 'Услуги', href: '#uslugi' },
   { label: 'Цены', href: '#ceny' },

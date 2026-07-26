@@ -21,15 +21,15 @@ import { cta, contacts } from '../data/site';
       -->
       <form class="form" id="leadForm" novalidate data-phone={contacts.phone}>
         <div class="field">
-          <input name="name" id="lfName" placeholder="Ваше имя" required maxlength="60" autocomplete="name" />
+          <input name="name" id="lfName" class="ym-disable-keys" placeholder="Ваше имя" required maxlength="60" autocomplete="name" />
           <span class="err" data-for="name"></span>
         </div>
         <div class="field">
-          <input name="phone" id="lfPhone" placeholder="Телефон или мессенджер" required inputmode="tel" autocomplete="tel" />
+          <input name="phone" id="lfPhone" class="ym-disable-keys" placeholder="Телефон или мессенджер" required inputmode="tel" autocomplete="tel" />
           <span class="err" data-for="phone"></span>
         </div>
         <div class="field">
-          <textarea name="task" id="lfTask" rows="2" maxlength="1000" placeholder="Кратко о задаче (необязательно)"></textarea>
+          <textarea name="task" id="lfTask" class="ym-disable-keys" rows="2" maxlength="1000" placeholder="Кратко о задаче (необязательно)"></textarea>
         </div>
         <!-- honeypot от ботов: реальные люди это поле не видят и не заполняют -->
         <input type="text" name="website" id="lfHp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -111,6 +111,8 @@ import { cta, contacts } from '../data/site';
     function showDone() {
       f.hidden = true;
       document.getElementById('leadDone').hidden = false;
+      // цель «lead» в Метрике; на локалке ymGoal не определён — вызов безопасен
+      if (window.ymGoal) window.ymGoal('lead');
     }
     function fail(msg) {
       formErr.textContent = msg || ('Не удалось отправить. Позвоните: ' + (f.dataset.phone || ''));
