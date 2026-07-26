@@ -30,7 +30,7 @@ export const contacts = {
   // __PLACEHOLDER__ — точный адрес (нужен для Яндекс Бизнеса и schema.org)
   address: 'г. Оренбург, ул. Туркестанская, 5, офис 707Б',
   hours: 'Пн–Пт, 9:00–18:00',
-  whatsapp: 'https://wa.me/79877978588',
+  // WhatsApp не используем — мессенджеры только Telegram и МАКС.
   // Telegram по номеру. Если появится @username — заменить на https://t.me/username
   telegram: 'https://t.me/milabuhgalter',
   // Публичная ссылка на профиль в МАКС (из приложения: аватар → QR → «Поделиться»)
@@ -61,7 +61,6 @@ export const analytics = {
     call: 'call',           // клик по номеру телефона
     telegram: 'telegram',   // клик по Telegram
     max: 'max',             // клик по MAX
-    whatsapp: 'whatsapp',   // клик по WhatsApp
     email: 'email',         // клик по e-mail
     lead: 'lead',           // успешная отправка формы заявки
   },

@@ -13,7 +13,7 @@ const businessId = `${site.origin}/#business`;
 const personId = `${site.origin}/#person`;
 
 // Реальные соцпрофили (плейсхолдеры отфильтровываем, чтобы не попали в schema).
-const sameAs = [contacts.maxLink, contacts.telegram, contacts.whatsapp]
+const sameAs = [contacts.maxLink, contacts.telegram]
   .filter((u) => u && !u.includes('t.me/username') && !u.includes('example'));
 
 const stripHtml = (s: string) => s.replace(/<[^>]+>/g, '');
@@ -121,7 +121,6 @@ const ymCode = `(function(){
     else if (h.indexOf('mailto:') === 0) window.ymGoal('${analytics.goals.email}');
     else if (/t\\.me\\//i.test(h)) window.ymGoal('${analytics.goals.telegram}');
     else if (/max\\.ru\\//i.test(h)) window.ymGoal('${analytics.goals.max}');
-    else if (/wa\\.me\\/|whatsapp/i.test(h)) window.ymGoal('${analytics.goals.whatsapp}');
   }, true);
 })();`;
 const ymEnabled = import.meta.env.PROD && !!YM;
